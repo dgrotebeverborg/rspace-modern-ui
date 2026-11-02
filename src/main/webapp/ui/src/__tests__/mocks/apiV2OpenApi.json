@@ -4145,9 +4145,9 @@
             "type" : "string"
           }
         }, {
+          "description" : "RSQL event filters, including requesterId==me and targetOwner==me. Owner equality is allowed only outside OR groups. The effective subject is resolved on every request.",
           "in" : "query",
           "name" : "where",
-          "required" : false,
           "schema" : {
             "type" : "string"
           }
@@ -4237,9 +4237,9 @@
             "type" : "string"
           }
         }, {
+          "description" : "RSQL item filters, including targetOwner==me (equality only, outside OR groups). The effective subject is resolved on every request.",
           "in" : "query",
           "name" : "where",
-          "required" : false,
           "schema" : {
             "type" : "string"
           }
@@ -4381,9 +4381,9 @@
             "type" : "string"
           }
         }, {
+          "description" : "RSQL item filters, including targetOwner==me (equality only, outside OR groups). The effective subject is resolved on every request.",
           "in" : "query",
           "name" : "where",
-          "required" : false,
           "schema" : {
             "type" : "string"
           }
@@ -4480,16 +4480,16 @@
             "type" : "string"
           }
         }, {
+          "description" : "RSQL item filters, including targetOwner==me (equality only, outside OR groups). The effective subject is resolved on every request.",
           "in" : "query",
           "name" : "where",
-          "required" : false,
           "schema" : {
             "type" : "string"
           }
         }, {
+          "description" : "RSQL event filters, including requesterId==me and targetOwner==me. Owner comparisons must be outside OR groups.",
           "in" : "query",
           "name" : "eventWhere",
-          "required" : false,
           "schema" : {
             "type" : "string"
           }
@@ -4711,7 +4711,7 @@
         "description" : "Archives every booking-configurations matching the required filter. The operation is handled as one service-layer mutation; resource-specific limits are reported with status 422.",
         "operationId" : "deleteManyBookingConfigurations",
         "parameters" : [ {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
           "in" : "query",
           "name" : "where",
           "required" : true,
@@ -4994,6 +4994,13 @@
                 },
                 "wildcards" : false
               },
+              "targetOwner" : {
+                "operators" : [ "==" ],
+                "schema" : {
+                  "type" : "string"
+                },
+                "wildcards" : false
+              },
               "timezone" : {
                 "operators" : [ "!=", "==", "=contains=", "=exists=", "=in=", "=like=", "=out=" ],
                 "schema" : {
@@ -5193,10 +5200,10 @@
         "x-rspace-operation" : "BULK_DELETE"
       },
       "get" : {
-        "description" : "Returns a paginated view of booking-configurations. Filtering, sorting, sparse fieldsets, exclusions, and relationship depth are applied before rendering.",
+        "description" : "Lists readable configurations on undeleted targets. The where member targetOwner accepts only ==me outside OR groups, resolves to the effective subject on each request, and includes the Inventory read constraint.",
         "operationId" : "listBookingConfigurations",
         "parameters" : [ {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
           "in" : "query",
           "name" : "where",
           "required" : false,
@@ -5476,6 +5483,13 @@
                 "schema" : {
                   "format" : "int64",
                   "type" : "integer"
+                },
+                "wildcards" : false
+              },
+              "targetOwner" : {
+                "operators" : [ "==" ],
+                "schema" : {
+                  "type" : "string"
                 },
                 "wildcards" : false
               },
@@ -5843,7 +5857,7 @@
         "description" : "Updates every booking-configurations matching the required filter. The operation is handled as one service-layer mutation; resource-specific limits are reported with status 422.",
         "operationId" : "updateManyBookingConfigurations",
         "parameters" : [ {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
           "in" : "query",
           "name" : "where",
           "required" : true,
@@ -6123,6 +6137,13 @@
                 "schema" : {
                   "format" : "int64",
                   "type" : "integer"
+                },
+                "wildcards" : false
+              },
+              "targetOwner" : {
+                "operators" : [ "==" ],
+                "schema" : {
+                  "type" : "string"
                 },
                 "wildcards" : false
               },
@@ -6756,7 +6777,7 @@
             "type" : "integer"
           }
         }, {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
           "in" : "query",
           "name" : "where",
           "required" : false,
@@ -7036,6 +7057,13 @@
                 "schema" : {
                   "format" : "int64",
                   "type" : "integer"
+                },
+                "wildcards" : false
+              },
+              "targetOwner" : {
+                "operators" : [ "==" ],
+                "schema" : {
+                  "type" : "string"
                 },
                 "wildcards" : false
               },
@@ -9050,7 +9078,7 @@
         "description" : "Returns a paginated view of bookings. Filtering, sorting, sparse fieldsets, exclusions, and relationship depth are applied before rendering.",
         "operationId" : "listBookings",
         "parameters" : [ {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
           "in" : "query",
           "name" : "where",
           "required" : false,
@@ -9844,7 +9872,7 @@
             "type" : "integer"
           }
         }, {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
           "in" : "query",
           "name" : "where",
           "required" : false,
@@ -10994,7 +11022,7 @@
         "description" : "Returns a paginated view of containers. Filtering, sorting, sparse fieldsets, exclusions, and relationship depth are applied before rendering.",
         "operationId" : "listContainers",
         "parameters" : [ {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias.",
           "in" : "query",
           "name" : "where",
           "required" : false,
@@ -11292,7 +11320,7 @@
             "type" : "integer"
           }
         }, {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias.",
           "in" : "query",
           "name" : "where",
           "required" : false,
@@ -11868,7 +11896,7 @@
         "description" : "Returns a paginated view of instruments. Filtering, sorting, sparse fieldsets, exclusions, and relationship depth are applied before rendering.",
         "operationId" : "listInstruments",
         "parameters" : [ {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
           "in" : "query",
           "name" : "where",
           "required" : false,
@@ -12246,7 +12274,7 @@
             "type" : "integer"
           }
         }, {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias. Further per-caller selectors are listed by the catalog named in x-rspace-runtime-fields.",
           "in" : "query",
           "name" : "where",
           "required" : false,
@@ -12902,7 +12930,7 @@
         "description" : "Deletes every maintenances matching the required filter. The operation is handled as one service-layer mutation; resource-specific limits are reported with status 422.",
         "operationId" : "deleteManyMaintenances",
         "parameters" : [ {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias.",
           "in" : "query",
           "name" : "where",
           "required" : true,
@@ -13067,7 +13095,7 @@
         "description" : "Returns a paginated view of maintenances. Filtering, sorting, sparse fieldsets, exclusions, and relationship depth are applied before rendering.",
         "operationId" : "listMaintenances",
         "parameters" : [ {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias.",
           "in" : "query",
           "name" : "where",
           "required" : false,
@@ -13366,7 +13394,7 @@
         "description" : "Updates every maintenances matching the required filter. The operation is handled as one service-layer mutation; resource-specific limits are reported with status 422.",
         "operationId" : "updateManyMaintenances",
         "parameters" : [ {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias.",
           "in" : "query",
           "name" : "where",
           "required" : true,
@@ -13817,7 +13845,7 @@
             "type" : "integer"
           }
         }, {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias.",
           "in" : "query",
           "name" : "where",
           "required" : false,
@@ -14714,7 +14742,7 @@
         "description" : "Returns a paginated view of users. Filtering, sorting, sparse fieldsets, exclusions, and relationship depth are applied before rendering.",
         "operationId" : "listUsers",
         "parameters" : [ {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias.",
           "in" : "query",
           "name" : "where",
           "required" : false,
@@ -15025,7 +15053,7 @@
             "type" : "integer"
           }
         }, {
-          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me.",
+          "description" : "Bounded RSQL filter expression. Available selectors and operators are provided in x-rspace-filter. For ID selectors on relationships whose targets are all users, exact me resolves to the authenticated effective subject's numeric ID; for example, createdBy.value==me. Scalar user-id selectors may explicitly opt into the same alias.",
           "in" : "query",
           "name" : "where",
           "required" : false,
