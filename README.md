@@ -17,6 +17,41 @@ interaction changes and supporting Workspace controller code. The aim is to reta
 RSpace's existing capabilities and permission model. It is not currently a
 switchable skin; the modern presentation is part of this branch.
 
+## UI preview
+
+Screenshots from the local development build, using demonstration accounts and
+sample data. These show the current interface, not design mockups.
+
+### Workspace
+
+Recent records and clear entry points to notebooks, documents and laboratory resources.
+
+![Modern RSpace workspace with recent records and navigation cards](DevDocs/images/modern-ui/workspace.png)
+
+### Gallery
+
+A consistent sidebar and a focused file browser.
+
+![Gallery showing sample images and the left navigation sidebar](DevDocs/images/modern-ui/gallery.png)
+
+### Inventory
+
+A list-first layout with filters available when needed.
+
+![Inventory showing the bench list, search and collapsible filters](DevDocs/images/modern-ui/inventory.png)
+
+### Account creation
+
+Aligned fields, clear account types and grouped administration controls.
+
+![System account creation with aligned fields and community selection](DevDocs/images/modern-ui/create-account.png)
+
+### Mobile
+
+The workspace adapts to a narrow screen with compact navigation and stacked content.
+
+<img src="DevDocs/images/modern-ui/workspace-mobile.png" alt="Modern RSpace workspace on a mobile screen" width="320">
+
 ## Development status
 
 Experimental and under active development. It has been exercised locally with
