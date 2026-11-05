@@ -1,6 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>
 		<spring:message code="userProfile.title"/>
 	</title>
@@ -18,11 +19,11 @@
 	<input type="hidden" name="encryptPass" value="true" />
 </c:if>
 
-<p style="visibility: hidden;">--hidden spacing--</p>
+
 
 <spring:message code="userform.passwordCharsTitle" var="userformPasswordCharsTitle" htmlEscape="true"/>
 
-<div style="font-size: 1.5em; margin: 15px 0px; display: inline-block;">
+<h1 class="myrspace-heading">
 	<c:choose>
 		<c:when test="${canEdit}"><spring:message code="userform.ownProfileHeading"/></c:when>
 		<c:otherwise><spring:message code="userform.otherProfileHeading"/></c:otherwise>
@@ -39,7 +40,7 @@
 			<c:otherwise>${user.username}</c:otherwise>
 		</c:choose>
 	</span>
-</div>
+</h1>
 
 <div id="profileBlock" style="display:block; overflow: auto">
 	<div class="bootstrap-custom-flat">

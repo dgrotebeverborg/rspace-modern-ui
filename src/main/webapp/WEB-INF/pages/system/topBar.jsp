@@ -1,6 +1,10 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<div id="topBar" class="navbar navbar-inverse">
+<link rel="stylesheet" href="<rst:assetUrl value='/styles/pages/system-refresh.css'/>" />
+<script src="<rst:assetUrl value='/scripts/pages/system/system-refresh.js'/>"></script>
+<details id="system-navigation" open>
+<summary><spring:message code="common:appBar.sections.system.title" /></summary>
+<div id="topBar" role="navigation" aria-label="<spring:message code='common:appBar.sections.system.title'/>" class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<ul class="nav navbar-nav">
 			<c:if test="${empty hasCommunity or hasCommunity eq 'true'}">
@@ -47,6 +51,8 @@
 		</ul>
 	</div>
 </div>
+
+</details>
 
 <%-- div for promote to PI user dialog --%>
 <div id="runAsUserDlg" style="display: none">

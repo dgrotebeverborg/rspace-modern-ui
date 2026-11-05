@@ -12,6 +12,7 @@ const MY_RSPACE_WORKSPACE_PATHS = [
 ];
 
 export function currentPageKey(): PageBrandingKey {
+  if (document.getElementById("system-navigation")) return "system";
   if (MY_RSPACE_WORKSPACE_PATHS.some((p) => window.location.pathname.startsWith(p))) return "myRSpace";
   const pages: Record<string, PageBrandingKey> = {
     workspace: "workspace",

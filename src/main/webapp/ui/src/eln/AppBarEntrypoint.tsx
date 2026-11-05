@@ -59,7 +59,6 @@ window.addEventListener("load", () => {
                     <AppBar variant="page" currentPage={currentPageKey()} accessibilityTips={{}} />
                   </DialogBoundary>
                 </Box>
-                <Box sx={{ height: "30px" }}></Box>
               </ThemeProvider>
             </ErrorBoundary>
           </Analytics>

@@ -1,62 +1,70 @@
-# 👋 Welcome to RSpace 
+# RSpace Modern UI
 
-RSpace is an open-source research data management platform designed to be a user-friendly and integrated frontend for researchers to efficiently connect and utilize research infrastructure in sustainable FAIR research workflows across the entire research lifecycle.
+An unofficial UI/UX refresh of [RSpace](https://github.com/rspace-os/rspace-web),
+with a calmer layout, consistent navigation and responsive administration screens.
+This is an independent development fork, not an official RSpace release.
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/rspace-os/rspace-marketing-resources/main/main_graphic.svg" alt="RSpace" width="800">
-</p>
+## What changed
 
-## What RSpace Does
+- Refreshed login and global navigation.
+- Workspace home with recent records and clearer entry points to existing content.
+- Updated document editor, form editor and field dialogs.
+- Consistent Gallery, Inventory, My RSpace and System navigation.
+- Improved account creation, administration tables and mobile layouts.
 
-- **Electronic Lab Notebook** — document experiments, protocols, and observations with rich media, templates, version control, and full auditability
-- **Inventory Management** — track samples, reagents, and equipment with customizable metadata, locations, and relationships
-- **Infrastructure Orchestration** — connect research workflows with the tools and services your institution uses
-- **FAIR Data** — built-in features and persistent identifiers to make research data Findable, Accessible, Interoperable, and Reusable
+This is more than a CSS-only theme: it includes React and JSP layout changes,
+interaction changes and supporting Workspace controller code. The aim is to retain
+RSpace's existing capabilities and permission model. It is not currently a
+switchable skin; the modern presentation is part of this branch.
 
----
+## Development status
 
-## Getting Started
+Experimental and under active development. It has been exercised locally with
+Chromium desktop/mobile checks, TypeScript, lint and focused frontend/backend
+tests. This is not a fully certified production release or a complete regression
+suite across all deployment modes, integrations and browsers.
 
-### Try RSpace
+Known issue: an editor smoke test observed intermittent Fancytree reload assertion
+errors even though saving and reopening documents succeeded. External SSO/LDAP
+and all third-party integrations have not been validated end to end.
 
-- [Run locally with Docker](https://github.com/rspace-os/rspace-docker) — quickest way to get RSpace running on your own machine
-- [Request a demo](https://www.researchspace.com/request-a-demo) 
+See [implementation and validation notes](DevDocs/DeveloperNotes/GettingStarted/WorkspaceRefresh.md)
+for the changes, checks and known limitations.
 
-### Developer Setup
+## Run locally
 
-Everything you need to build and run RSpace from source:
+Clone this repository's default branch, then use the existing per-worktree Docker
+development stack:
 
-→ **[Developer Getting Started Guide](https://github.com/rspace-os/rspace-web/tree/main/DevDocs/DeveloperNotes/GettingStarted)**
+```sh
+git clone https://github.com/dgrotebeverborg/rspace-modern-ui.git
+cd rspace-modern-ui
+./docker/dev/rspace-dev up
+```
 
-This covers dependencies, database setup, building the project, running RSpace locally, and IDE configuration.
+The launcher allocates local ports and reports the application URL. Read the
+[Docker development guide](docker/dev/README.md) for prerequisites, configuration,
+restart behavior and data handling. This stack is intended for local development;
+it is not a production deployment configuration.
 
----
+Local databases, uploads, credentials and development configuration are not included
+in this repository. Chemistry and other optional services require their own setup;
+the UI changes do not automatically enable them in a new installation.
 
-## Contributing
+## Upstream and maintenance
 
-We welcome contributions of all kinds — code, UX, documentation, templates, integrations, and more.
+Based on `rspace-os/rspace-web` at commit
+[`d73524d64`](https://github.com/rspace-os/rspace-web/commit/d73524d64).
+The upstream Git history is retained. UI changes are developed on
+`feat/workspace-refresh`, the default branch of this fork. Upstream updates need
+merging, conflict resolution where appropriate, and regression checks.
 
-→ **[Guide to the RSpace Project](https://github.com/rspace-os/community/blob/main/the%20rspace%20project/README.md)** — your guide to the project and how to contribute
+The [original upstream README](README.upstream.md) contains RSpace's overview,
+community links and deployment documentation. Those links describe the upstream
+project; its support and release guarantees do not apply to this fork.
 
-→ **[Getting Started as a Contributor](https://github.com/rspace-os/community/blob/main/the%20rspace%20project/Guide/contributing/getting-started.md)** — read this before your first contribution
+## License and attribution
 
-→ **[Roadmap](https://github.com/orgs/rspace-os/projects/4?pane=info)** — where we're headed and where to get involved
-
----
-
-## Community
-
-- 📅 **[Office Hours](https://github.com/rspace-os/community/blob/main/the%20rspace%20project/Guide/calendar.md)** — bi-monthly community call, open to all
-- 📬 **[Stay in touch](https://github.com/rspace-os/community/blob/main/the%20rspace%20project/Guide/contact.md)** — newsletter, Mastodon, LinkedIn, Bluesky, and more
-
----
-
-## Documentation
-
-- **[User Documentation](https://documentation.researchspace.com)** — guides and reference for researchers using RSpace
-- **[API Reference](https://community.researchspace.com/public/apiDocs)** — REST API documentation and interactive explorer
-- **[DevDocs](https://github.com/rspace-os/rspace-web/tree/main/DevDocs)** — developer documentation: architecture, coding standards, development workflows
-
-
-
-[![DOI](https://zenodo.org/badge/809392922.svg)](https://doi.org/10.5281/zenodo.14628345)
+The original [GNU Affero General Public License v3](LICENSE) and copyright notices
+are retained. RSpace and the original application are the work of their respective
+contributors; this repository adds an unofficial presentation refresh.

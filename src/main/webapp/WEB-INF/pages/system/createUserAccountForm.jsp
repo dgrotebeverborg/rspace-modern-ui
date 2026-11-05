@@ -1,6 +1,6 @@
 <%@ include file="/common/taglibs.jsp"%>
 <%@ taglib prefix="f" uri="http://researchspace.com/functions" %>
-<div style="font-size: 1.3em;line-height:1.3em; margin-bottom:1.5em">
+<div class="account-role-heading">
 	<c:if test="${role eq 'ROLE_USER'}">
 		<spring:message code="system:usersPage.roleLabels.user" />
 	</c:if>
@@ -62,27 +62,27 @@
 				</tr>
 			</c:if>
 		</c:if>
-		<tr>
+		<tr class="account-field-row">
 			<td width="20%">
-				<label>
+				<label for="firstName">
 					<spring:message code="system.createAccountForm.firstName.label" />
 				</label>
 			</td>
 			<td width="30%">
-				<input type="text" name="firstName" placeholder="<spring:message code='system.createAccountForm.firstName.label'/>" class="accountsInputs" required />
+				<input type="text" id="firstName" name="firstName" placeholder="<spring:message code='system.createAccountForm.firstName.label'/>" class="accountsInputs" required />
 			</td>
 			<td width="20%">
-				<label>
+				<label for="lastName">
 					<spring:message code="system.createAccountForm.lastName.label" />
 				</label>
 			</td>
 			<td width="30%">
-				<input type="text" name="lastName" placeholder="<spring:message code='system.createAccountForm.lastName.label'/>" class="accountsInputs" required />
+				<input type="text" id="lastName" name="lastName" placeholder="<spring:message code='system.createAccountForm.lastName.label'/>" class="accountsInputs" required />
 			</td>
 		</tr>
-		<tr>
+		<tr class="account-field-row">
 			<td width="20%">
-				<label>
+				<label for="username">
 					<spring:message code="system:usersPage.columns.username" />
 					<div class="backdoorAccountAdditionalText" style="font-size: 7pt; display: none;">
 						<spring:message code="system.createAccountForm.backdoorUsernameWarning"/>
@@ -92,7 +92,7 @@
 			<td width="30%">
 				<input
 					type="text"
-					name="username"
+					id="username" name="username"
 					placeholder="<spring:message code='system:usersPage.columns.username'/>"
 					class="accountsInputs"
 					pattern="${usernamePattern}"
@@ -101,14 +101,14 @@
 				/>
 			</td>
 			<td width="20%">
-				<label>
+				<label for="email">
 					<spring:message code="system.createAccountForm.email.label" />
 				</label>
 			</td>
 			<td width="30%">
 				<input
 					type="email"
-					name="email"
+					id="email" name="email"
 					autocomplete="off"
 					placeholder="<spring:message code='system.createAccountForm.email.label'/>"
 					class="accountsInputs"
@@ -117,16 +117,16 @@
 			</td>
 		</tr>
 		<c:if test="${affiliationRequired eq true }">
-			<tr>
+			<tr class="account-field-row">
 				<td width="20%">
-					<label>
+					<label for="affiliation">
 						<spring:message code="user.affiliation.label" />
 					</label>
 				</td>
 				<td width="30%">
 					<input
 						type="text"
-						name="affiliation"
+						id="affiliation" name="affiliation"
 						placeholder="<spring:message code='user.affiliation.label'/>"
 						class="accountsInputs"
 						required
@@ -153,7 +153,7 @@
 				</td>
 			</tr>
 		</rst:hasDeploymentProperty>
-		<tr class="createPasswordRow">
+		<tr class="account-field-row createPasswordRow">
 			<td width="20%">
 				<label for="password">
 					<spring:message code="system.createAccountForm.generatePasswordLinkLabel" var="generatePasswordLinkLabel"/>
@@ -161,10 +161,11 @@
 						<spring:argument value='<a id="generatePasswordButton" href="#">${generatePasswordLinkLabel}</a>'/>
 					</spring:message>
 				</label>
-                <p><spring:message code="system.createAccountForm.password.helpText"/></p>
+
 			</td>
 			<td width="30%">
-				<input type="password" name="password" placeholder="<spring:message code='system:usersPage.piRoleDialog.password'/>" class="accountsInputs" pattern="[ -~]{8,128}" title="<spring:message code='system.createAccountForm.password.title'/>" required />
+				<input type="password" id="password" name="password" placeholder="<spring:message code='system:usersPage.piRoleDialog.password'/>" class="accountsInputs" pattern="[ -~]{8,128}" title="<spring:message code='system.createAccountForm.password.title'/>" required />
+                <p><spring:message code="system.createAccountForm.password.helpText"/></p>
 
 			</td>
 			<td width="20%">
@@ -173,10 +174,10 @@
 				</label>
 			</td>
 			<td width="30%">
-				<input type="password" name="passwordConfirmation" placeholder="<spring:message code='system.createAccountForm.passwordConfirmation.placeholder'/>" class="accountsInputs" pattern="[ -~]{8,128}" title="<spring:message code='system.createAccountForm.passwordConfirmation.title'/>" required />
+				<input type="password" id="passwordConfirmation" name="passwordConfirmation" placeholder="<spring:message code='system.createAccountForm.passwordConfirmation.placeholder'/>" class="accountsInputs" pattern="[ -~]{8,128}" title="<spring:message code='system.createAccountForm.passwordConfirmation.title'/>" required />
 			</td>
 		</tr>
-		<tr class="createPasswordRow" >
+		<tr class="createPasswordRow account-password-help">
 			<td width="20%">
 				<label>
 					<spring:message code="system.createAccountForm.showHidePassword.label" />
@@ -190,31 +191,31 @@
 				</label>
 			</td>
 		</tr>
-		<tr>
+		<tr class="account-field-row">
 			<c:if test="${role eq 'ROLE_PI'}">
 				<td width="20%">
-					<label>
+					<label for="newLabGroupName">
 						<spring:message code="system.createAccountForm.labGroupName.label" />
 					</label>
 				</td>
 				<td>
-					<input type="text" name="newLabGroupName" placeholder="<spring:message code='system.createAccountForm.newLabGroupName.placeholder'/>" class="accountsInputs" required />
+					<input type="text" id="newLabGroupName" name="newLabGroupName" placeholder="<spring:message code='system.createAccountForm.newLabGroupName.placeholder'/>" class="accountsInputs" required />
 				</td>
 			</c:if>
 			<td>
 				<input type="hidden" name="role" value="${role}" />
 			</td>
-		
+        </tr>
 
 		<!-- Conditionals section depending of the role (option previously selected or clicked) -->
 		<c:if test="${role eq 'ROLE_USER'}">
-			<tr>
+			<tr class="account-membership-heading">
 				<td colspan="1"><spring:message code="system.createAccountForm.communitySelectionLabel"/></td>
 				<td colspan="1">
 					<input id="searchLabGroup" type="text" placeholder="<spring:message code='system.createAccountForm.labGroupFilterPlaceholder'/>" class="accountsInputs" />
 				</td>
 			</tr>
-			<tr>
+			<tr class="account-membership-options">
 				<td colspan="1" style="display:flex">
 					<div id="communitiesList">
 						<input class="communitiesListOption" type="radio" value="-10" name="communityId" required />
@@ -248,7 +249,7 @@
 
 		<c:if test="${role eq 'ROLE_PI'}">
 			<shiro:hasRole name="ROLE_SYSADMIN">
-				<tr>
+				<tr class="account-community-row">
 					<td width="20%" valign="top"><br><label>
 							<spring:message code="system.createAccountForm.selectPiCommunity.label" /> </label></td>
 					<td>
@@ -272,7 +273,7 @@
 
 		<c:if test="${role eq 'ROLE_ADMIN'}">
 			<shiro:hasRole name="ROLE_SYSADMIN">
-				<tr>
+				<tr class="account-community-row">
 					<td width="20%" valign="top"><br>
 						<label>
 							<spring:message code="system.createAccountForm.selectAdminCommunity.label" />
@@ -302,7 +303,7 @@
 		</c:if>
 	</table>
 
-	<table class="bootstrap-custom-flat" width="100%">
+	<table class="bootstrap-custom-flat account-submit-row" width="100%">
 		<tr width="100%">
 			<td colspan="2">
 				<c:if test="${ldapLookupRequired eq true}">

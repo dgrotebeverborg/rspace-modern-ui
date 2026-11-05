@@ -14,7 +14,6 @@ import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import { paperClasses } from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
-import { autorun } from "mobx";
 import { observer } from "mobx-react-lite";
 import React, { Suspense } from "react";
 import { useTranslation } from "react-i18next";
@@ -361,10 +360,8 @@ const Sidebar = ({
   const filestoresEnabled = useDeploymentProperty("netfilestores.enabled");
   const { t } = useTranslation(["gallery", "common"]);
   React.useEffect(() => {
-    autorun(() => {
-      if (viewport.isViewportSmall) setDrawerOpen(false);
-    });
-  }, [viewport]);
+    if (viewport.isViewportSmall) setDrawerOpen(false);
+  }, [viewport.isViewportSmall]);
   const showFilestores = FetchingData.getSuccessValue(filestoresEnabled)
     .flatMap(Parsers.isBoolean)
     .flatMap(Parsers.isTrue)
@@ -374,6 +371,9 @@ const Sidebar = ({
   });
   return (
     <Drawer
+      key={viewport.isViewportSmall ? "mobile" : "desktop"}
+      className="gallery-sidebar app-section-sidebar"
+      data-expanded={drawerOpen}
       open={drawerOpen}
       anchor="left"
       variant={viewport.isViewportSmall ? "temporary" : "permanent"}
@@ -386,7 +386,9 @@ const Sidebar = ({
       ref={sidebarRef as React.Ref<HTMLDivElement>}
       sx={{
         width: drawerOpen ? "200px" : "64px",
+        flexShrink: 0,
         zIndex: 1300,
+        ...(viewport.isViewportSmall && !drawerOpen ? { visibility: "hidden", pointerEvents: "none" } : {}),
         [`& .${paperClasses.root}`]: {
           position: "relative",
         },

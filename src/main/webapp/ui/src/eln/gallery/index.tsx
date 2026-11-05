@@ -1,9 +1,11 @@
+import "./gallery-refresh.css";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Stack from "@mui/material/Stack";
 import { lighten, ThemeProvider } from "@mui/material/styles";
 import StyledEngineProvider from "@mui/styled-engine/StyledEngineProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { observer } from "mobx-react-lite";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate, Route, Routes, useParams } from "react-router";
@@ -59,259 +61,263 @@ import { GallerySelection, useGallerySelection } from "./useGallerySelection";
  */
 const EMPTY_PATH = Object.freeze([]) as ReadonlyArray<GalleryFile>;
 
-const WholePage = ({
-  listingOf,
-  setSelectedSection,
-  setPath,
-  autoSelect,
-  title,
-  decorateFile,
-}: {
-  listingOf:
-    | {
-        tag: "section";
-        section: GallerySection;
-        path: ReadonlyArray<GalleryFile>;
-      }
-    | { tag: "folder"; folderId: number };
-  setSelectedSection: ({ mediaType }: { mediaType: GallerySection }) => void;
-  setPath: (path: ReadonlyArray<GalleryFile>) => void;
-  autoSelect?: ReadonlyArray<number>;
-  title: ({ path, section }: { path: ReadonlyArray<GalleryFile>; section: GallerySection }) => string;
-
-  /**
-   * Applied to every file in the listing before anything sees it, so the grid
-   * tile, the selection, the InfoPanel and the Actions menu all act on one
-   * object. Must be referentially stable: the decorated listing is memoised on
-   * it, so an unstable one would hand a fresh object to the selection on every
-   * render.
-   */
-  decorateFile?: (file: GalleryFile) => GalleryFile;
-}) => {
-  const { t } = useTranslation("gallery");
-  const [appliedSearchTerm, setAppliedSearchTerm] = React.useState("");
-  const [orderBy, setOrderBy] = useUiPreference<"name" | "modificationDate">(PREFERENCES.GALLERY_SORT_BY, {
-    defaultValue: "modificationDate",
-  });
-  const [sortOrder, setSortOrder] = useUiPreference<"DESC" | "ASC">(PREFERENCES.GALLERY_SORT_ORDER, {
-    defaultValue: "DESC",
-  });
-  const {
-    galleryListing: liveListing,
-    folderId,
-    path,
-    refreshListing,
-    selectedSection,
-  } = useGalleryListing({
+const WholePage = observer(
+  ({
     listingOf,
-    searchTerm: appliedSearchTerm,
-    orderBy,
-    sortOrder,
-  });
-
-  /*
-   * Decorating here, rather than at the point of selection, is what keeps the
-   * whole page consistent: everything downstream reads the listing.
-   *
-   * The memo is keyed on the listing's own array, not on the Fetched wrapper:
-   * useGalleryListing rebuilds that wrapper every render, so keying on it would
-   * decorate afresh every render. The decorated objects are what the selection
-   * and the InfoPanel hold onto, so churning their identity restarts effects
-   * keyed on them, including the version-history fetch. Only the decoration is
-   * worth memoising; rebuilding the wrapper around it is free.
-   */
-  const liveList = liveListing.tag === "success" && liveListing.value.tag !== "empty" ? liveListing.value.list : null;
-  const decoratedList = React.useMemo(
-    () => (decorateFile && liveList ? liveList.map(decorateFile) : null),
-    [liveList, decorateFile],
-  );
-
-  const galleryListing =
-    decoratedList && liveListing.tag === "success" && liveListing.value.tag !== "empty"
-      ? { tag: "success" as const, value: { ...liveListing.value, list: decoratedList } }
-      : liveListing;
-
-  const { isViewportSmall } = useViewportDimensions();
-
-  const selection = useGallerySelection();
-  React.useEffect(() => {
-    try {
-      FetchingData.getSuccessValue(galleryListing).do((listing) => {
-        if (listing.tag === "empty") return;
-        for (const f of new RsSet(listing.list).intersectionMap(
-          ({ id }) => idToString(id).elseThrow(),
-          new RsSet(autoSelect ?? []).map((id) => `${id}`),
-        )) {
-          selection.append(f);
+    setSelectedSection,
+    setPath,
+    autoSelect,
+    title,
+    decorateFile,
+  }: {
+    listingOf:
+      | {
+          tag: "section";
+          section: GallerySection;
+          path: ReadonlyArray<GalleryFile>;
         }
-      });
-    } catch {
-      /*
-       * This will throw when processing files from external filestores that
-       * do not have an id, but that's fine as external filestores cannot be
-       * encoded in the URL and so cannot be autoselected.
-       */
-    }
-  }, [autoSelect, galleryListing]);
+      | { tag: "folder"; folderId: number };
+    setSelectedSection: ({ mediaType }: { mediaType: GallerySection }) => void;
+    setPath: (path: ReadonlyArray<GalleryFile>) => void;
+    autoSelect?: ReadonlyArray<number>;
+    title: ({ path, section }: { path: ReadonlyArray<GalleryFile>; section: GallerySection }) => string;
 
-  const [largerViewportSidebarOpenState, setLargerViewportSidebarOpenState] = useUiPreference<boolean>(
-    PREFERENCES.GALLERY_SIDEBAR_OPEN,
-    {
-      defaultValue: true,
-    },
-  );
-  const [smallViewportSidebarOpenState, setSmallViewportSidebarOpenState] = React.useState(false);
-  const drawerOpen = isViewportSmall ? smallViewportSidebarOpenState : largerViewportSidebarOpenState;
-  const setDrawerOpen = isViewportSmall ? setSmallViewportSidebarOpenState : setLargerViewportSidebarOpenState;
+    /**
+     * Applied to every file in the listing before anything sees it, so the grid
+     * tile, the selection, the InfoPanel and the Actions menu all act on one
+     * object. Must be referentially stable: the decorated listing is memoised on
+     * it, so an unstable one would hand a fresh object to the selection on every
+     * render.
+     */
+    decorateFile?: (file: GalleryFile) => GalleryFile;
+  }) => {
+    const { t } = useTranslation("gallery");
+    const [appliedSearchTerm, setAppliedSearchTerm] = React.useState("");
+    const [orderBy, setOrderBy] = useUiPreference<"name" | "modificationDate">(PREFERENCES.GALLERY_SORT_BY, {
+      defaultValue: "modificationDate",
+    });
+    const [sortOrder, setSortOrder] = useUiPreference<"DESC" | "ASC">(PREFERENCES.GALLERY_SORT_ORDER, {
+      defaultValue: "DESC",
+    });
+    const {
+      galleryListing: liveListing,
+      folderId,
+      path,
+      refreshListing,
+      selectedSection,
+    } = useGalleryListing({
+      listingOf,
+      searchTerm: appliedSearchTerm,
+      orderBy,
+      sortOrder,
+    });
 
-  const sidebarId = React.useId();
-  const { useNavigate } = React.useContext(NavigateContext);
-  const navigate = useNavigate();
+    /*
+     * Decorating here, rather than at the point of selection, is what keeps the
+     * whole page consistent: everything downstream reads the listing.
+     *
+     * The memo is keyed on the listing's own array, not on the Fetched wrapper:
+     * useGalleryListing rebuilds that wrapper every render, so keying on it would
+     * decorate afresh every render. The decorated objects are what the selection
+     * and the InfoPanel hold onto, so churning their identity restarts effects
+     * keyed on them, including the version-history fetch. Only the decoration is
+     * worth memoising; rebuilding the wrapper around it is free.
+     */
+    const liveList = liveListing.tag === "success" && liveListing.value.tag !== "empty" ? liveListing.value.list : null;
+    const decoratedList = React.useMemo(
+      () => (decorateFile && liveList ? liveList.map(decorateFile) : null),
+      [liveList, decorateFile],
+    );
 
-  const { trackEvent } = React.useContext(AnalyticsContext);
-  React.useEffect(() => {
-    trackEvent("user:load:page:gallery", { section: selectedSection });
-  }, []);
+    const galleryListing =
+      decoratedList && liveListing.tag === "success" && liveListing.value.tag !== "empty"
+        ? { tag: "success" as const, value: { ...liveListing.value, list: decoratedList } }
+        : liveListing;
 
-  const pageTitle = React.useMemo(() => {
-    try {
-      return FetchingData.getSuccessValue(path)
-        .flatMap((p) =>
-          FetchingData.getSuccessValue(selectedSection).map((s) =>
-            t("pageTitleWithContext", { pageContext: title({ path: p, section: s }) }),
-          ),
-        )
-        .orElse(null);
-    } catch (e) {
-      console.error("Error computing document title", e);
-      return t("pageTitle");
-    }
-  }, [path, selectedSection, t, title]);
+    const { isViewportSmall } = useViewportDimensions();
 
-  return (
-    <Box
-      sx={{
-        "@keyframes drop": {
-          "0%": {
-            borderColor: lighten(SELECTED_OR_FOCUS_BLUE, 0.6),
+    const selection = useGallerySelection();
+    React.useEffect(() => {
+      try {
+        FetchingData.getSuccessValue(galleryListing).do((listing) => {
+          if (listing.tag === "empty") return;
+          for (const f of new RsSet(listing.list).intersectionMap(
+            ({ id }) => idToString(id).elseThrow(),
+            new RsSet(autoSelect ?? []).map((id) => `${id}`),
+          )) {
+            selection.append(f);
+          }
+        });
+      } catch {
+        /*
+         * This will throw when processing files from external filestores that
+         * do not have an id, but that's fine as external filestores cannot be
+         * encoded in the URL and so cannot be autoselected.
+         */
+      }
+    }, [autoSelect, galleryListing]);
+
+    // Match Inventory: start expanded on desktop; collapsing is local to this visit.
+    const [largerViewportSidebarOpenState, setLargerViewportSidebarOpenState] = React.useState(true);
+    const [smallViewportSidebarOpenState, setSmallViewportSidebarOpenState] = React.useState(false);
+    const drawerOpen = isViewportSmall ? smallViewportSidebarOpenState : largerViewportSidebarOpenState;
+    const setDrawerOpen = isViewportSmall ? setSmallViewportSidebarOpenState : setLargerViewportSidebarOpenState;
+
+    const sidebarId = React.useId();
+    const { useNavigate } = React.useContext(NavigateContext);
+    const navigate = useNavigate();
+
+    const { trackEvent } = React.useContext(AnalyticsContext);
+    React.useEffect(() => {
+      trackEvent("user:load:page:gallery", { section: selectedSection });
+    }, []);
+
+    const pageTitle = React.useMemo(() => {
+      try {
+        return FetchingData.getSuccessValue(path)
+          .flatMap((p) =>
+            FetchingData.getSuccessValue(selectedSection).map((s) =>
+              t("pageTitleWithContext", { pageContext: title({ path: p, section: s }) }),
+            ),
+          )
+          .orElse(null);
+      } catch (e) {
+        console.error("Error computing document title", e);
+        return t("pageTitle");
+      }
+    }, [path, selectedSection, t, title]);
+
+    return (
+      <Box
+        className="gallery-refresh"
+        sx={{
+          "@keyframes drop": {
+            "0%": {
+              borderColor: lighten(SELECTED_OR_FOCUS_BLUE, 0.6),
+            },
+            "50%": {
+              borderColor: lighten(SELECTED_OR_FOCUS_BLUE, 0.8),
+            },
+            "100%": {
+              borderColor: lighten(SELECTED_OR_FOCUS_BLUE, 0.6),
+            },
           },
-          "50%": {
-            borderColor: lighten(SELECTED_OR_FOCUS_BLUE, 0.8),
-          },
-          "100%": {
-            borderColor: lighten(SELECTED_OR_FOCUS_BLUE, 0.6),
-          },
-        },
-        height: "100%",
-      }}
-    >
-      {pageTitle !== null && <title>{pageTitle}</title>}
-      <CallableImagePreview>
-        <CallablePdfPreview>
-          <CallableAsposePreview>
-            <CallableSnapGenePreview>
-              <CallableSnippetPreview>
-                <OpenFolderProvider
-                  setPath={(newPath) => {
-                    FetchingData.getSuccessValue(selectedSection).do((section) => {
-                      if (section === GALLERY_SECTION.NETWORKFILES) {
-                        setPath(newPath);
-                        return;
-                      }
-                      if (newPath.length > 0) {
-                        navigate(`/gallery/${idToString(newPath[newPath.length - 1].id).elseThrow()}`);
-                      } else {
-                        try {
-                          navigate(`/gallery?mediaType=${section}`);
-                        } catch {
-                          // do nothing
+          height: "100%",
+        }}
+      >
+        {pageTitle !== null && <title>{pageTitle}</title>}
+        <CallableImagePreview>
+          <CallablePdfPreview>
+            <CallableAsposePreview>
+              <CallableSnapGenePreview>
+                <CallableSnippetPreview>
+                  <OpenFolderProvider
+                    setPath={(newPath) => {
+                      FetchingData.getSuccessValue(selectedSection).do((section) => {
+                        if (section === GALLERY_SECTION.NETWORKFILES) {
+                          setPath(newPath);
+                          return;
                         }
-                      }
-                    });
-                  }}
-                >
-                  <Stack sx={{ height: "100%" }}>
-                    <AppBar
-                      variant="page"
-                      currentPage="gallery"
-                      ambientI18n
-                      sidebarToggle={
-                        <SidebarToggle setSidebarOpen={setDrawerOpen} sidebarOpen={drawerOpen} sidebarId={sidebarId} />
-                      }
-                      accessibilityTips={{
-                        supportsHighContrastMode: true,
-                        supportsReducedMotion: true,
-                        supports2xZoom: true,
-                        supportsSkipToContent: true,
-                      }}
-                    />
-                    <Box sx={{ display: "flex", minHeight: "0", flexGrow: 1 }} component="main">
-                      <Sidebar
-                        selectedSection={FetchingData.getSuccessValue(selectedSection).orElse(null)}
-                        setSelectedSection={(mediaType) => {
-                          setSelectedSection({ mediaType });
-                          setPath(EMPTY_PATH);
-                          setAppliedSearchTerm("");
-                          trackEvent("user:change:section:gallery", {
-                            section: mediaType,
-                          });
+                        if (newPath.length > 0) {
+                          navigate(`/gallery/${idToString(newPath[newPath.length - 1].id).elseThrow()}`);
+                        } else {
+                          try {
+                            navigate(`/gallery?mediaType=${section}`);
+                          } catch {
+                            // do nothing
+                          }
+                        }
+                      });
+                    }}
+                  >
+                    <Stack sx={{ height: "100%" }}>
+                      <AppBar
+                        variant="page"
+                        currentPage="gallery"
+                        ambientI18n
+                        sidebarToggle={
+                          <SidebarToggle
+                            setSidebarOpen={setDrawerOpen}
+                            sidebarOpen={drawerOpen}
+                            sidebarId={sidebarId}
+                          />
+                        }
+                        accessibilityTips={{
+                          supportsHighContrastMode: true,
+                          supportsReducedMotion: true,
+                          supports2xZoom: true,
+                          supportsSkipToContent: true,
                         }}
-                        drawerOpen={drawerOpen}
-                        setDrawerOpen={setDrawerOpen}
-                        folderId={folderId}
-                        path={FetchingData.getSuccessValue(path).orElse(null)}
-                        refreshListing={refreshListing}
-                        id={sidebarId}
                       />
-                      <Box
-                        sx={{
-                          height: "100%",
-                          display: "flex",
-                          flexDirection: "column",
-                          flexGrow: 1,
-                          minWidth: 0,
-                        }}
-                      >
-                        <MainPanel
+                      <Box sx={{ display: "flex", minHeight: "0", flexGrow: 1 }} component="main">
+                        <Sidebar
                           selectedSection={FetchingData.getSuccessValue(selectedSection).orElse(null)}
-                          path={FetchingData.getSuccessValue(path).orElse(null)}
                           setSelectedSection={(mediaType) => {
                             setSelectedSection({ mediaType });
                             setPath(EMPTY_PATH);
                             setAppliedSearchTerm("");
-                          }}
-                          galleryListing={galleryListing}
-                          folderId={folderId}
-                          refreshListing={refreshListing}
-                          key={null}
-                          sortOrder={sortOrder}
-                          orderBy={orderBy}
-                          setSortOrder={setSortOrder}
-                          setOrderBy={setOrderBy}
-                          appliedSearchTerm={appliedSearchTerm}
-                          setAppliedSearchTerm={(newTerm) => {
-                            FetchingData.getSuccessValue(path).do((p) => {
-                              if (p.length > 0) {
-                                trackEvent("user:search:folder:gallery");
-                              } else {
-                                trackEvent("user:search:section:gallery");
-                              }
+                            trackEvent("user:change:section:gallery", {
+                              section: mediaType,
                             });
-                            setAppliedSearchTerm(newTerm);
                           }}
+                          drawerOpen={drawerOpen}
+                          setDrawerOpen={setDrawerOpen}
+                          folderId={folderId}
+                          path={FetchingData.getSuccessValue(path).orElse(null)}
+                          refreshListing={refreshListing}
+                          id={sidebarId}
                         />
+                        <Box
+                          sx={{
+                            height: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            flexGrow: 1,
+                            minWidth: 0,
+                          }}
+                        >
+                          <MainPanel
+                            listFirst
+                            selectedSection={FetchingData.getSuccessValue(selectedSection).orElse(null)}
+                            path={FetchingData.getSuccessValue(path).orElse(null)}
+                            setSelectedSection={(mediaType) => {
+                              setSelectedSection({ mediaType });
+                              setPath(EMPTY_PATH);
+                              setAppliedSearchTerm("");
+                            }}
+                            galleryListing={galleryListing}
+                            folderId={folderId}
+                            refreshListing={refreshListing}
+                            key={null}
+                            sortOrder={sortOrder}
+                            orderBy={orderBy}
+                            setSortOrder={setSortOrder}
+                            setOrderBy={setOrderBy}
+                            appliedSearchTerm={appliedSearchTerm}
+                            setAppliedSearchTerm={(newTerm) => {
+                              FetchingData.getSuccessValue(path).do((p) => {
+                                if (p.length > 0) {
+                                  trackEvent("user:search:folder:gallery");
+                                } else {
+                                  trackEvent("user:search:section:gallery");
+                                }
+                              });
+                              setAppliedSearchTerm(newTerm);
+                            }}
+                          />
+                        </Box>
                       </Box>
-                    </Box>
-                  </Stack>
-                </OpenFolderProvider>
-              </CallableSnippetPreview>
-            </CallableSnapGenePreview>
-          </CallableAsposePreview>
-        </CallablePdfPreview>
-      </CallableImagePreview>
-    </Box>
-  );
-};
+                    </Stack>
+                  </OpenFolderProvider>
+                </CallableSnippetPreview>
+              </CallableSnapGenePreview>
+            </CallableAsposePreview>
+          </CallablePdfPreview>
+        </CallableImagePreview>
+      </Box>
+    );
+  },
+);
 
 /**
  * This component is responsible for rendering the gallery when no folder is

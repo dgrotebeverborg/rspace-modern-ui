@@ -23,6 +23,8 @@
   <jsp:include page="topBar.jsp"></jsp:include>
 </div>
 
+<link rel="stylesheet" href="<rst:assetUrl value='/styles/pages/system-account-refresh.css'/>" />
+
 <div id="contentCreateAccount">
   <br>
   <br>

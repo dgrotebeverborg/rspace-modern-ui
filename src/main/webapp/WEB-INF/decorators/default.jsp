@@ -33,7 +33,8 @@
     <script>RS.cacheVersion = '<rst:cacheVersion/>';</script>
     <rst:i18nMessages />
     <script src="<rst:assetUrl value='/scripts/global.settingsStorage.js'/>"></script>
-    <jsp:include page="/scripts/templates/blockUI.html"/>
+    <%-- Static inclusion also works when the decorated view is returned from a POST. --%>
+    <%@ include file="/scripts/templates/blockUI.html" %>
     <link rel="stylesheet" href="<rst:assetUrl value='/styles/jquery.toastmessage.css'/>" />
 
     <sitemesh:write property='head'/>

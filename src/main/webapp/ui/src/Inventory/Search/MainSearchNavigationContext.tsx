@@ -6,7 +6,7 @@ import NavigateContext from "../../stores/contexts/Navigate";
 import SearchContext from "../../stores/contexts/Search";
 import { parseCoreFetcherArgsFromUrl } from "../../stores/models/Fetcher/CoreFetcher";
 import useStores from "../../stores/use-stores";
-import { getErrorMessage, UserCancelledAction } from "../../util/error";
+import { getErrorMessage } from "../../util/error";
 
 type MainSearchNavigationContextArgs = {
   children: React.ReactNode;
@@ -42,16 +42,6 @@ export default function MainSearchNavigationContext({ children }: MainSearchNavi
           isInfinite: true,
         }),
       );
-    }
-
-    if (!search.activeResult && search.filteredResults.length && !uiStore.isVerySmall && !uiStore.isSmall) {
-      try {
-        await search.setActiveResult();
-        uiStore.setVisiblePanel("right");
-      } catch (e) {
-        if (e instanceof UserCancelledAction) return;
-        throw e;
-      }
     }
   };
 

@@ -1,6 +1,37 @@
 var tableElement = ".mainTable tbody";
 
 $(document).ready(function (){
+  const myRSpaceNavigation = document.getElementById("myrspace-navigation");
+  if (myRSpaceNavigation) {
+    const smallScreen = window.matchMedia("(max-width: 767px)");
+    const updateNavigationLayout = () => { myRSpaceNavigation.open = !smallScreen.matches; };
+    updateNavigationLayout();
+    smallScreen.addEventListener("change", updateNavigationLayout);
+    // The React app bar is mounted directly under body after window.load.
+    const banners = document.querySelector(".header-wrapper");
+    const observeAppBar = () => {
+      const appBar = document.querySelector("body > #app-bar");
+      if (!appBar) return false;
+      const updateHeaderHeight = () => {
+        const appBarHeight = appBar.getBoundingClientRect().height;
+        document.documentElement.style.setProperty("--myrspace-appbar-height", appBarHeight + "px");
+        document.documentElement.style.setProperty("--myrspace-header-height",
+          (appBarHeight + (banners?.getBoundingClientRect().height || 0)) + "px");
+      };
+      const resizeObserver = new ResizeObserver(updateHeaderHeight);
+      resizeObserver.observe(appBar);
+      if (banners) resizeObserver.observe(banners);
+      updateHeaderHeight();
+      return true;
+    };
+    if (!observeAppBar()) {
+      const mountObserver = new MutationObserver(() => {
+        if (observeAppBar()) mountObserver.disconnect();
+      });
+      mountObserver.observe(document.body, { childList: true });
+    }
+    myRSpaceNavigation.querySelector(".currentPanel a")?.setAttribute("aria-current", "page");
+  }
 	// this input field will only be available in cloud version
 	applyAutocomplete('.user_autocompletable');
 
@@ -21,7 +52,16 @@ $(document).ready(function (){
 	const scrollCurrentMenuPanelIntoView = () => {
 		const currentPanel = document.querySelector("#menuMover .menuInnerPanel.currentPanel");
 		if (currentPanel !== null && currentPanel.offsetParent !== null) {
-			currentPanel.scrollIntoView({ block: "nearest", inline: "center" });
+      if (myRSpaceNavigation) {
+        const sidebar = document.getElementById("menuScrollContainer");
+        if (myRSpaceNavigation.open && sidebar) {
+          const panelBounds = currentPanel.getBoundingClientRect();
+          const sidebarBounds = sidebar.getBoundingClientRect();
+          if (panelBounds.bottom > sidebarBounds.bottom) sidebar.scrollTop += panelBounds.bottom - sidebarBounds.bottom;
+        }
+      } else {
+        currentPanel.scrollIntoView({ block: "nearest", inline: "center" });
+      }
 			updateMenuScrollButtons();
 		}
 	};

@@ -533,6 +533,7 @@ const FileCard = observer(
       return (
         <Fade in={true} timeout={window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 400}>
           <Card
+            className="gallery-file-card"
             component="div"
             elevation={0}
             sx={(theme) => ({
@@ -1263,6 +1264,7 @@ const PathAndSearch = observer(
   },
 );
 type GalleryMainPanelArgs = {
+  listFirst?: boolean;
   selectedSection: GallerySection | null;
   path: ReadonlyArray<GalleryFile> | null;
   setSelectedSection: (section: GallerySection) => void;
@@ -1290,6 +1292,7 @@ type GalleryMainPanelArgs = {
   setAppliedSearchTerm: (term: string) => void;
 };
 function GalleryMainPanel({
+  listFirst = false,
   selectedSection,
   path,
   setSelectedSection,
@@ -1369,6 +1372,7 @@ function GalleryMainPanel({
   };
   return (
     <DialogContent
+      className="gallery-main-panel"
       aria-live="polite"
       sx={{
         position: "relative",
@@ -1423,6 +1427,11 @@ function GalleryMainPanel({
           }}
           spacing={1}
         >
+          {listFirst && (
+            <Typography component="h1" className="gallery-heading">
+              {t("pageTitle")}
+            </Typography>
+          )}
           <Grid>
             <PathAndSearch
               appliedSearchTerm={appliedSearchTerm}
@@ -1667,9 +1676,9 @@ function GalleryMainPanel({
               role="region"
               aria-label={t("mainPanel.filesListingLabel")}
               size={{
-                md: 7,
-                lg: 8,
-                xl: 9,
+                md: listFirst && selection.isEmpty ? 12 : 7,
+                lg: listFirst && selection.isEmpty ? 12 : 8,
+                xl: listFirst && selection.isEmpty ? 12 : 9,
               }}
             >
               <Grid
@@ -1719,7 +1728,7 @@ function GalleryMainPanel({
                 mx: 1.5,
                 display: {
                   xs: "none",
-                  md: "block",
+                  md: listFirst && selection.isEmpty ? "none" : "block",
                 },
               }}
             >
@@ -1729,7 +1738,7 @@ function GalleryMainPanel({
               sx={{
                 display: {
                   xs: "none",
-                  md: "block",
+                  md: listFirst && selection.isEmpty ? "none" : "block",
                 },
                 overflowX: "hidden",
                 overflowY: "auto",

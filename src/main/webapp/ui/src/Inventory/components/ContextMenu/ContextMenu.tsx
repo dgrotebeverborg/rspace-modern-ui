@@ -56,6 +56,13 @@ function ContextMenu({
   });
 
   const buttonList = actions("button");
+  // The record header keeps Edit prominent; other actions retain their original menu handlers.
+  const secondaryActions = new Set(
+    buttonList.flatMap((action, i) =>
+      menuID === "stepper" && !action.hidden && action.component.key !== "edit" ? [i] : [],
+    ),
+  );
+  const hasMenuActions = secondaryActions.size > 0 || overflow.size > 0;
 
   useLayoutEffect(() => {
     const root = containerRef.current;
@@ -132,7 +139,7 @@ function ContextMenu({
             }}
           >
             {buttonList.map((action: ContextAction, i) =>
-              !action.hidden ? (
+              !action.hidden && !secondaryActions.has(i) ? (
                 <Box
                   key={i}
                   data-idx={i}
@@ -156,16 +163,16 @@ function ContextMenu({
             sx={{ p: 0.75 }}
             size="medium"
             onClick={(event) => setAnchorEl(event.currentTarget)}
-            disabled={overflow.size === 0}
+            disabled={!hasMenuActions}
           />
           <StyledMenu
             anchorEl={anchorEl}
-            open={Boolean(anchorEl) && overflow.size > 0}
+            open={Boolean(anchorEl) && hasMenuActions}
             onClose={() => setAnchorEl(null)}
             disableAutoFocusItem={true}
           >
             {actions("menuitem").map((action: ContextAction, i) =>
-              !action.hidden && overflow.has(i) ? action.component : null,
+              !action.hidden && (overflow.has(i) || secondaryActions.has(i)) ? action.component : null,
             )}
           </StyledMenu>
         </Box>

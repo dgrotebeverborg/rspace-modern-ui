@@ -62,6 +62,7 @@ import HelpLinkIcon from "../HelpLinkIcon";
 import IconButtonWithTooltip from "../IconButtonWithTooltip";
 import VisuallyHiddenHeading from "../VisuallyHiddenHeading";
 import AboutRSpaceDialog from "./AboutRSpaceDialog";
+import { pageHeaderSx } from "./pageHeaderStyles";
 import type SidebarToggle from "./SidebarToggle";
 import useUiNavigationData, { type UiNavigationData } from "./useUiNavigationData";
 
@@ -188,8 +189,8 @@ const StyledAvatar = ({
   <Avatar
     {...props}
     sx={{
-      color: "#fce8f0",
-      backgroundColor: "#ed1064",
+      color: "#ffffff",
+      backgroundColor: "#146b60",
       ...(size === "small"
         ? {
             height: "24px",
@@ -205,7 +206,7 @@ const StyledAvatar = ({
 /**
  * This image is used to indicate the current user
  * - If the user has uploaded a profile image then it is shown
- * - Otherwise a magenta circle with their first initial is shown
+ * - Otherwise a teal circle with their first initial is shown
  * - If they're operating as another user then a red icon mark is
  *   shown
  */
@@ -360,8 +361,6 @@ function GalleryAppBar({
   }
   const [accountMenuAnchorEl, setAccountMenuAnchorEl] = React.useState<null | HTMLElement>(null);
   const [aboutDialogOpen, setAboutDialogOpen] = React.useState(false);
-  const leftClipId = React.useId();
-  const rightClipId = React.useId();
   const fetchedCurrentUser = useWhoAmI();
   const [brandingHref, setBrandingHref] = useSessionStorage<string | null>("brandingHref", null);
   React.useEffect(() => {
@@ -394,30 +393,12 @@ function GalleryAppBar({
   const displayPage = (page: string): string => (isTabKey(page) ? sectionLabels[page].title : page);
 
   const appBar = (
-    <AppBar position="relative" aria-label={variant === "page" ? t("appBar.pageHeader") : t("appBar.dialogHeader")}>
+    <AppBar
+      position="relative"
+      sx={variant === "page" ? pageHeaderSx : undefined}
+      aria-label={variant === "page" ? t("appBar.pageHeader") : t("appBar.dialogHeader")}
+    >
       <Toolbar variant="dense">
-        {variant === "page" && !isViewportSmall && (
-          <>
-            <Box
-              sx={{
-                height: "40px",
-                backgroundColor: "white",
-                width: "4px",
-                clipPath: `url(#${leftClipId})`,
-                marginLeft: "4px",
-                marginRight: "-1px",
-              }}
-            ></Box>
-            {/** biome-ignore lint/a11y/noSvgWithoutTitle: initial biome migration */}
-            <svg width="0" height="0" viewBox="0 0 3.9 40">
-              <defs>
-                <clipPath id={leftClipId}>
-                  <path d="M3.9,40C1.7,40,0,38.3,0,36.1V3.9C0,1.7,1.7,0,3.9,0v40Z" fill="#000000" />
-                </clipPath>
-              </defs>
-            </svg>
-          </>
-        )}
         <Box
           sx={{
             display: "flex",
@@ -430,51 +411,16 @@ function GalleryAppBar({
         >
           {sidebarToggle}
           {variant === "page" && !isViewportSmall && (
-            <Box
-              sx={{
-                height: "36px",
-                ml: 0.5,
-                py: 0.25,
-                position: "relative",
-              }}
-            >
+            <Box sx={{ height: "32px", position: "relative", mr: 2 }}>
               {Result.fromNullable(brandingHref, new Error("branding not cached"))
                 .orElseTry(() => FetchingData.getSuccessValue(uiNavigationData).map(({ bannerImgSrc }) => bannerImgSrc))
                 .map((href) => (
-                  <img
-                    key="branding small"
-                    src={href}
-                    alt={t("appBar.brandingAlt")}
-                    style={{
-                      height: "100%",
-                    }}
-                  />
+                  <img key="branding small" src={href} alt={t("appBar.brandingAlt")} style={{ height: "100%" }} />
                 ))
                 .orElse(null)}
             </Box>
           )}
         </Box>
-        {variant === "page" && !isViewportSmall && (
-          <>
-            <Box
-              sx={{
-                height: "40px",
-                backgroundColor: "white",
-                width: "12px",
-                clipPath: `url(#${rightClipId})`,
-                marginLeft: "-1px",
-              }}
-            ></Box>
-            {/** biome-ignore lint/a11y/noSvgWithoutTitle: initial biome migration */}
-            <svg width="0" height="0">
-              <defs>
-                <clipPath id={rightClipId}>
-                  <path d="M0,0c2.1,0,4.2,1.7,4.6,3.9l5.7,32.2c.4,2.1-1.1,3.9-3.2,3.9H0V0Z" fill="#000000" />
-                </clipPath>
-              </defs>
-            </svg>
-          </>
-        )}
         {variant === "page" && isTabbedPage && (
           <VisuallyHiddenHeading variant="h1">{displayPage(currentPage)}</VisuallyHiddenHeading>
         )}
@@ -492,7 +438,7 @@ function GalleryAppBar({
         {!isViewportSmall && variant === "page" && (
           <Stack
             direction="row"
-            spacing={2}
+            spacing={0.5}
             sx={{
               mx: 1,
             }}

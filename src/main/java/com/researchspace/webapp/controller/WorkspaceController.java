@@ -237,7 +237,67 @@ public class WorkspaceController extends BaseController {
 
     relist(workspaceSettings, settingsKey, model, request, session, response, user, rootRecord);
     setPublicationAllowed(model, principal.getName());
+    if (isHomeRequest(request)) {
+      String section = request.getParameter("section");
+      if (section == null) {
+        addHomeAttributes(model, user);
+      } else {
+        addHomeCollection(model, user, section, request.getParameter("homePage"));
+      }
+      model.addAttribute(
+          "homeInventoryAvailable",
+          systemPropertyPermissionManager.isPropertyAllowed(user, "inventory.available"));
+    }
     return new ModelAndView(ROOT_URL_VIEW);
+  }
+
+  // Saved searches, filters, pagination and folder links retain the full workspace view.
+  static boolean isHomeRequest(HttpServletRequest request) {
+    return request.getParameterMap().isEmpty()
+        || (Set.of("notebooks", "documents")
+                .contains(String.valueOf(request.getParameter("section")))
+            && Set.of("section", "homePage").containsAll(request.getParameterMap().keySet()));
+  }
+
+  void addHomeAttributes(Model model, User user) {
+    WorkspaceFilters filters = new WorkspaceFilters();
+    filters.setViewableItemsFilter(true);
+    filters.setDocumentsFilter(true);
+    PaginationCriteria<BaseRecord> pagination =
+        PaginationCriteria.createDefaultForClass(BaseRecord.class);
+    pagination.setResultsPerPage(6);
+    pagination.setOrderBy(SearchUtils.BASE_RECORD_ORDER_BY_LAST_MODIFIED);
+    pagination.setSortOrder(SortOrder.DESC);
+    model.addAttribute(
+        "homeRecentRecords",
+        recordManager.getFilteredRecords(filters, pagination, user).getResults());
+    model.addAttribute("workspaceHome", true);
+  }
+
+  void addHomeCollection(Model model, User user, String section, String requestedPage) {
+    WorkspaceFilters filters = new WorkspaceFilters();
+    filters.setViewableItemsFilter(true);
+    List<BaseRecord> records =
+        recordManager.getFilteredRecordsList(filters, user).stream()
+            .filter(
+                record ->
+                    "notebooks".equals(section)
+                        ? record.isNotebook()
+                        : record.isStructuredDocument() && !record.isTemplate())
+            .sorted(
+                java.util.Comparator.comparing(BaseRecord::getModificationDate)
+                    .reversed()
+                    .thenComparing(BaseRecord::getId))
+            .toList();
+    int lastPage = Math.max(0, (records.size() - 1) / 12);
+    Long requested = convertToLongOrNull(requestedPage);
+    int page = requested == null ? 0 : (int) Math.max(0, Math.min(requested, lastPage));
+    model.addAttribute("workspaceHome", true);
+    model.addAttribute("homeSection", section);
+    model.addAttribute("homeCurrentPage", page);
+    model.addAttribute("homeHasNext", page < lastPage);
+    model.addAttribute(
+        "homeRecentRecords", records.subList(page * 12, Math.min(records.size(), (page + 1) * 12)));
   }
 
   private void setAllowPublishOwnDocumentsByRoleAsPIOrByGroupPermission(Model model, User user) {

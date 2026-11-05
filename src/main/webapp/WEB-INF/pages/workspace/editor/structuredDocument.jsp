@@ -44,7 +44,7 @@
   const enforceOntologies = "${enforce_ontologies}" === "true";
   const allowBioOntologies = "${allow_bioOntologies}"  === "true";
 </script>
-<div class="mainDocumentView">
+<div class="mainDocumentView document-refresh">
   <axt:fileTreeBrowser />
   <rs:chkRecordPermssns user="${user}" record="${structuredDocument}" action="COPY">
     <c:set var="canCopy" value="true"></c:set>
@@ -129,3 +129,5 @@
   <rst:bundle bundle="ketcherViewer" />
 
   <!--End React Scripts -->
+
+<link rel="stylesheet" href="<rst:assetUrl value='/styles/pages/workspace/editor-refresh.css'/>" />

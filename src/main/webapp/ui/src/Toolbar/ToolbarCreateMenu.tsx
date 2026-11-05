@@ -29,6 +29,7 @@ type DynamicMenuItem = {
 };
 
 type CreateMenuProps = {
+  label?: string;
   asposeEnabled?: boolean;
   pioEnabled?: boolean;
 };
@@ -71,9 +72,9 @@ export default function CreateMenu(props: CreateMenuProps) {
           fontWeight: "normal",
           borderColor: "white",
         }}
-        aria-label={t("toolbar.createRecord")}
+        aria-label={props.label ?? t("toolbar.createRecord")}
       >
-        {t("actions.create")}
+        {props.label ?? t("actions.create")}
       </Button>
       <Menu
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}

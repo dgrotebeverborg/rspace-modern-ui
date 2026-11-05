@@ -43,6 +43,8 @@ const CustomDrawer = observer(({ children, id }: { children: React.ReactNode; id
   const isOpen = uiStore.sidebarOpen;
   return (
     <Drawer
+      className="inventory-sidebar app-section-sidebar"
+      data-expanded={isOpen}
       open={alwaysVisible || isOpen}
       variant={alwaysVisible ? "persistent" : "temporary"}
       onClose={() => uiStore.toggleSidebar(false)}

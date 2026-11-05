@@ -1,3 +1,4 @@
+import "./Inventory/inventory-refresh.css";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
 import LoaderCircular from "./components/LoadingCircular";
@@ -8,6 +9,7 @@ window.addEventListener("load", () => {
   window.scrollTo(0, 1);
 
   if (domContainer) {
+    domContainer.dataset.inventoryRefresh = "true";
     const root = createRoot(domContainer);
     root.render(
       <I18nRoot namespaces={["inventory", "common", "about"]} fallback={<LoaderCircular />}>

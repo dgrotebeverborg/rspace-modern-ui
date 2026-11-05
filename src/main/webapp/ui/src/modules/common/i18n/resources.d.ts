@@ -4853,6 +4853,7 @@ export default interface Resources {
         "topLevelContainers": "{count} top-level containers found.",
         "undetermined": "Results cannot be fully determined."
       },
+      "filtersAndViews": "Filters and saved searches",
       "helpTitle": "Info on searching Inventory.",
       "navigation": {
         "label": "Search and Navigation"
@@ -11290,6 +11291,49 @@ export default interface Resources {
           "type": "Type"
         }
       }
+    },
+    "home": {
+      "back": "← Workspace home",
+      "collectionHint": "Latest updates first.",
+      "createHint": "Start with New above. Use Templates to reuse an existing document structure.",
+      "document": "Document",
+      "documentHint": "Write up an experiment, protocol or observation.",
+      "documents": "Documents",
+      "documentsHint": "Experiments, notes and protocols.",
+      "emptyHint": "Use New to start a document or notebook, or open All files to browse your folders.",
+      "emptyTitle": "Your research starts here",
+      "favorites": "Favorites",
+      "favoritesHint": "Your saved documents and notebooks.",
+      "files": "All files",
+      "folder": "Folder",
+      "folderHint": "Organise related documents and notebooks.",
+      "guideIntro": "Three building blocks help you organise your research.",
+      "guideLabel": "Make yourself at home",
+      "guideTitle": "A place for every part of your work",
+      "help": "How is my work organised?",
+      "intro": "Open your research, find your files, or start something new.",
+      "inventoryHint": "Samples, containers and equipment.",
+      "media": "Files & media",
+      "mediaHint": "Images, attachments and uploads.",
+      "new": "New",
+      "next": "Next",
+      "notebook": "Notebook",
+      "notebookHint": "Keep a series of research entries together.",
+      "notebooks": "Notebooks",
+      "notebooksHint": "Keep your research entries together.",
+      "pages": "Browse pages",
+      "previous": "Previous",
+      "recent": "Recently updated",
+      "recentHint": "Documents you can access, with the latest changes first.",
+      "search": "Search your workspace",
+      "shared": "Shared with me",
+      "sharedHint": "Research shared by your colleagues.",
+      "shortcuts": "Workspace shortcuts",
+      "template": "Template",
+      "templates": "Templates",
+      "templatesHint": "Reusable starting points for documents.",
+      "title": "Your workspace",
+      "viewAll": "View all"
     },
     "tinymce": {
       "chemCard": {

@@ -33,7 +33,9 @@
     <%-- key icon. FontAwesome doesn't work for some reason. Futher investigation is needed. --%>
     <link href="<rst:assetUrl value='/styles/fontello-key/css/fontello.css'/>" rel="stylesheet">
     <script src="<rst:assetUrl value='/scripts/global.js'/>"></script>
+    <link href="<rst:assetUrl value='/styles/authentication/login-refresh.css'/>" rel="stylesheet">
 </head>
+<body class="login-refresh">
 
 <!-- Remove the inventory JWT token -->
 <script type="text/javascript">
@@ -71,10 +73,19 @@
 
   <jsp:include page="/common/externalPagesNavbar.jsp" />
 
+  <main class="login-layout">
+    <section class="login-intro" aria-labelledby="login-welcome">
+      <div class="login-symbol" aria-hidden="true"><span></span><span></span><span></span></div>
+      <h1 id="login-welcome"><spring:message code="login.welcomeHeading"/></h1>
+      <div class="login-illustration" aria-hidden="true">
+        <div class="login-illustration-sheet"><i></i><i></i><i></i><i></i></div>
+        <div class="login-illustration-orbit"></div>
+      </div>
+    </section>
   <%-- BEGIN: login form --%>
   <div class="rs-sign-in-form bootstrap-custom-flat">
     <div class="rs-sign-in-form__head ">
-      <span><spring:message code="login.welcomeHeading"/></span>
+      <h2><spring:message code="login.heading"/></h2>
     </div>
 
 
@@ -91,6 +102,7 @@
       <fieldset>
 
         <div class="form-group col-lg-12 rs-field rs-field--input">
+          <label for="username"><spring:message code="adminLogin.usernamePlaceholder"/></label>
           <input id="username" type="text" name="username" placeholder="<spring:message code='adminLogin.usernamePlaceholder'/>" required="required" autofocus
                   class="form-control rs-field__input
                         <c:if test='${requestScope.shiroLoginFailure != null}'>
@@ -100,7 +112,7 @@
           <div class="rs-field__icon glyphicon glyphicon-user"></div>
 
           <div class="rs-tooltip resetUsernameDiv">
-              <a href='<c:url value="public/requestUsernameReminder"/>' tabindex="1"><spring:message code="requestUsernameReminder.heading"/></a>
+              <a href='<c:url value="public/requestUsernameReminder"/>' ><spring:message code="requestUsernameReminder.heading"/></a>
           </div>
         </div>
 
@@ -111,6 +123,7 @@
 
           <input type="hidden" id="timezone_field" name="timezone" />
 
+          <label for="password"><spring:message code="adminLogin.passwordPlaceholder"/></label>
           <input id="password" type="password" name="password" placeholder="<spring:message code='adminLogin.passwordPlaceholder'/>" required="required"
                  class="form-control rs-field__input
                         <c:if test='${requestScope.shiroLoginFailure != null}'>
@@ -122,7 +135,7 @@
 
           <%-- BEGIN: tooltips --%>
           <div class="rs-tooltip resetPasswordDiv">
-            <a href='<c:url value="public/requestPasswordReset" />'tabindex="2"><spring:message code="requestPasswordReset.heading"/></a>
+            <a href='<c:url value="public/requestPasswordReset" />'><spring:message code="requestPasswordReset.heading"/></a>
           </div>
 
           <c:if test="${requestScope.shiroLoginFailure != null}">
@@ -174,7 +187,7 @@
                  data-itp_support="true" data-callback="onSignIn">
             </div>
             <div class="g_id_signin" data-type="standard"
-                 data-text="continue_with" data-logo_alignment="center" data-width="340">
+                 data-text="continue_with" data-logo_alignment="center" data-width="220">
             </div>
           </div>
         </fieldset>
@@ -184,5 +197,8 @@
     </form>
   </div>
   <%-- END: login form --%>
+  </main>
 
 </div>
+
+</body>

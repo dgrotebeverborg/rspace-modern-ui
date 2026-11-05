@@ -79,6 +79,7 @@ function StepperPanelHeader_({
 
   return (
     <Box
+      className="inventory-section-heading"
       onClick={() => {
         onToggle(!open);
         setAllBtn(true);

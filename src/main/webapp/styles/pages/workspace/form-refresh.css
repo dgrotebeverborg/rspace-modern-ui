@@ -1,0 +1,149 @@
+/* Form builder only; retain the existing field/dialog and permission handlers. */
+@media screen {
+  body:has(.form-refresh) { background: #f3f6f5; color: #203536; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+  body:has(.form-refresh) #page,
+  body:has(.form-refresh) #main,
+  body:has(.form-refresh) #content,
+  body:has(.form-refresh) #footer { width: 100%; max-width: 1360px; min-width: 0; box-sizing: border-box; }
+  body:has(.form-refresh) #page { padding: 24px 32px; }
+  body:has(.form-refresh) #main { padding: 0; }
+  body:has(.form-refresh) #footer { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; padding: 32px 0; }
+  .form-refresh .separator { display: none; }
+  .form-refresh #menuScrollContainer { width: 100%; background: transparent; height: auto; border: 0; padding: 0; margin: 0 0 24px; }
+  .form-refresh #menuScrollContainer #menuFixer { width: 100%; height: auto; overflow: visible; float: none; border: 0; background: transparent; }
+  .form-refresh #menuScrollContainer #menuFixer #menuMover { display: flex; flex-wrap: wrap; gap: 6px; width: auto; height: auto; padding: 0; margin: 0; background: transparent; }
+  .form-refresh #menuScrollContainer #menuFixer #menuMover .menuInnerPanel { flex: 0 1 auto; width: auto; height: auto; min-height: 0; margin: 0; padding: 0; border: 0; background: transparent; }
+  .form-refresh #menuScrollContainer #menuFixer #menuMover .menuInnerPanel a { display: block; padding: 10px 12px; border-radius: 8px; color: #526b68; font-size: 13px; line-height: 1.4; text-decoration: none; }
+  .form-refresh #menuScrollContainer #menuFixer #menuMover .menuInnerPanel.currentPanel a { background: #dfeee7; color: #12685c; font-weight: 650; }
+  .form-refresh #menuScrollContainer #menuFixer #menuMover .menuInnerPanel a:hover { background: #e7efeb; }
+  .form-refresh #menuScrollContainer #menuFixer #menuMover .menuInnerPanel img,
+  .form-refresh #menuScrollContainer #menuFixer #menuMover .menuInnerPanel br,
+  .form-refresh .menuScrollButton { display: none !important; }
+  .form-refresh .form-heading { margin: 24px 0; }
+  .form-refresh .form-heading h1 { color: #203536; background: none; border: 0; font-size: 30px; font-weight: 650; letter-spacing: -.03em; margin: 0 0 10px; }
+  .form-refresh .form-heading p { color: #637874; font-size: 15px; }
+  body:has(.form-refresh) #main .form-refresh #toolbar { border: 1px solid #dbe5e3; background: white; border-radius: 14px 14px 0 0; padding: 12px; margin: 0; box-shadow: none; }
+  body:has(.form-refresh) #main .form-refresh #toolbar .toolbar-small { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 0; }
+  body:has(.form-refresh) #main .form-refresh #toolbar ul { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; float: none !important; margin: 0; }
+  body:has(.form-refresh) #main .form-refresh #toolbar ul:first-child { order: 10; margin-left: auto; }
+  body:has(.form-refresh) #main .form-refresh #toolbar button { background: #edf4f0; color: #146b60; border: 1px solid #d0e2d9; border-radius: 8px; min-height: 42px; padding: 10px 16px; font-size: 14px; box-shadow: none; }
+  body:has(.form-refresh) #main .form-refresh #toolbar #save { background: #146b60; border-color: #146b60; color: white; font-weight: 650; }
+  .form-refresh #multiUseBar { background: white; border: 1px solid #dbe5e3; border-top: 0; border-radius: 0 0 14px 14px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px; padding: 24px; height: auto; box-sizing: border-box; }
+  .form-refresh #documentName { flex: 1; background: transparent; margin: 0; width: auto; min-width: 180px; padding: 0; color: #637874; }
+  .form-refresh #documentName .recordName { display: block; font-size: 24px; color: #203536; font-weight: 650; margin-top: 8px; overflow-wrap: anywhere; }
+  .form-refresh #tagSlot { float: none; width: auto; max-width: 100%; }
+  .form-refresh #tagSlot input { display: block; max-width: 100%; width: 260px; box-sizing: border-box; border: 1px solid #dbe5e3; border-radius: 6px; padding: 10px; background: #f7faf8; }
+  .form-refresh .publishStatusLine { color: #637874; font-size: 12px; }
+  .form-refresh #publishingStatus { display: inline-block; padding: 4px 10px; background: #e4efe9; color: #146b60; border-radius: 20px; }
+  .form-refresh #structuredDocument { table-layout: fixed; border: 1px solid #dbe5e3; border-collapse: separate; border-spacing: 0; border-radius: 12px; background: white; overflow: hidden; }
+  .form-refresh #structuredDocument > tbody > tr > td { padding: 20px !important; border: 0; border-bottom: 1px solid #e3ece7; vertical-align: top; overflow-wrap: anywhere; }
+  .form-refresh #structuredDocument > tbody > tr:first-child { background: #eaf2ee; color: #526b68; }
+  .form-refresh #structuredDocument .field-name { width: 28% !important; font-weight: 600; }
+  .form-refresh .field-type-enum { display: block; font-size: 12px; color: #637874; margin-top: 8px; font-weight: normal; }
+  .form-refresh #structuredDocument input:not([type=checkbox]):not([type=radio]),
+  .form-refresh #structuredDocument textarea { max-width: 100%; box-sizing: border-box; border: 1px solid #dbe5e3; border-radius: 6px; padding: 8px; }
+  body:has(.form-refresh) .ui-dialog { border: 1px solid #dbe5e3; border-radius: 14px; box-shadow: 0 20px 80px #20353630; max-width: calc(100vw - 24px); box-sizing: border-box; }
+  body:has(.form-refresh) .ui-dialog .ui-dialog-titlebar { background: #edf4f0; color: #203536; border: 0; border-radius: 10px; padding: 14px; }
+  body:has(.form-refresh) .ui-dialog input,
+  body:has(.form-refresh) .ui-dialog select { max-width: 100%; box-sizing: border-box; }
+  .form-refresh :is(a,button,input,select):focus-visible { outline: 3px solid #168678; outline-offset: 3px; }
+  @media(max-width: 640px) {
+    body:has(.form-refresh) #page { padding: 16px 12px; }
+    .form-refresh #menuScrollContainer #menuFixer #menuMover { gap: 2px; }
+    .form-refresh #menuScrollContainer #menuFixer #menuMover .menuInnerPanel a { padding: 8px; font-size: 12px; }
+    .form-refresh #multiUseBar { padding: 16px; }
+    .form-refresh #structuredDocument > tbody > tr > td { padding: 10px !important; }
+    .form-refresh #structuredDocument .field-name { width: 32% !important; }
+    body:has(.form-refresh) .ui-dialog { left: 12px !important; }
+  }
+}
+@media screen {
+  .form-refresh #structuredDocument > tbody > tr > .field-value { width: auto; }
+  .form-refresh #structuredDocument .field-value > table { table-layout: fixed; width: 100%; }
+  .form-refresh #menuScrollContainer #menuFixer #menuMover .menuInnerPanel:hover { box-shadow: none; }
+  .form-refresh #menuScrollContainer #menuFixer #menuMover .menuInnerPanel a:focus-visible { outline: 3px solid #168678 !important; }
+}
+@media screen {
+  .form-refresh .publishStatusLine { width: auto !important; margin: 12px 0 !important; }
+}
+@media screen {
+  body:has(.form-refresh) #main .form-refresh #toolbar button { color: #146b60 !important; }
+  body:has(.form-refresh) #main .form-refresh #toolbar #save { color: white !important; }
+  .form-refresh .tox-tinymce { max-width: 100%; box-sizing: border-box; border-color: #dbe5e3; border-radius: 8px; }
+  .form-refresh .field-value .btn { border: 1px solid #c8ddd3; border-radius: 6px; color: #146b60; background: #edf4f0; }
+  @media(max-width: 640px) {
+    .form-refresh #structuredDocument > tbody > tr.field { display: block; border-bottom: 1px solid #dbe5e3; }
+    .form-refresh #structuredDocument > tbody > tr.field > td { display: block; width: 100% !important; box-sizing: border-box; border: 0; }
+    .form-refresh #structuredDocument > tbody > tr:first-child { display: none; }
+  }
+}
+
+/* jQuery UI appends dialogs to body, outside the form wrapper. */
+@media screen {
+  body:has(.form-refresh) .ui-dialog.ui-widget {
+    padding: 0; background: #fff; color: #203536;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    max-height: calc(100dvh - 24px);
+  }
+  body:has(.form-refresh) .ui-dialog.ui-widget .ui-dialog-titlebar {
+    background: #f0f6f3; border: 0; border-bottom: 1px solid #dbe5e3;
+    border-radius: 14px 14px 0 0; padding: 20px 52px 20px 24px;
+    font-size: 20px; font-weight: 650; color: #203536;
+  }
+  body:has(.form-refresh) .ui-dialog.ui-widget .ui-dialog-titlebar-close {
+    right: 16px; border: 0; border-radius: 6px; background: transparent;
+    width: 28px; height: 28px; margin-top: -14px;
+  }
+  body:has(.form-refresh) .ui-dialog.ui-widget .ui-dialog-content {
+    padding: 24px; box-sizing: border-box; color: #203536;
+    max-height: calc(100dvh - 190px); overflow: auto;
+  }
+  body:has(.form-refresh) .ui-dialog:has(#field-editor):not(:has(.form_field)) { height: auto !important; }
+  body:has(.form-refresh) #field-editor:not(:has(.form_field)) { height: auto !important; min-height: 0 !important; }
+  body:has(.form-refresh) .ui-dialog fieldset { border: 0; padding: 0; margin: 0 0 18px; min-width: 0; }
+  body:has(.form-refresh) .ui-dialog legend { font-size: 14px; font-weight: 650; color: #526b68; padding: 0; margin-bottom: 16px; }
+  body:has(.form-refresh) #field_selector { background: #f5f8f6; border: 1px solid #dbe5e3; border-radius: 10px; padding: 16px; }
+  body:has(.form-refresh) #field_selector table { width: 100%; }
+  body:has(.form-refresh) .ui-dialog :is(td,th) { padding: 8px 6px; text-align: left; vertical-align: top; }
+  body:has(.form-refresh) .ui-dialog label { color: #405857; font-size: 14px; font-weight: 550; }
+  body:has(.form-refresh) .ui-dialog :is(input:not([type=radio]):not([type=checkbox]):not([type=file]):not([type=hidden]),select,textarea) {
+    width: 100%; max-width: 100%; min-height: 40px; padding: 9px 12px;
+    border: 1px solid #bccfc7; border-radius: 7px; background: #fff; color: #203536;
+    font: inherit; box-shadow: none; box-sizing: border-box;
+  }
+  body:has(.form-refresh) .ui-dialog :is(input[type=radio],input[type=checkbox]) { accent-color: #146b60; width: 16px; height: 16px; vertical-align: middle; }
+  body:has(.form-refresh) .ui-dialog.ui-widget .ui-dialog-buttonpane {
+    background: #fafcfb; border: 0; border-top: 1px solid #dbe5e3; margin: 0; padding: 14px 20px;
+  }
+  body:has(.form-refresh) .ui-dialog.ui-widget .ui-dialog-buttonpane button {
+    background: white !important; color: #405857 !important; border: 1px solid #c8d9d1 !important;
+    border-radius: 8px; min-height: 42px; padding: 8px 18px; box-shadow: none; font-family: inherit; font-size: 14px; font-weight: 600; line-height: 1.4;
+  }
+  body:has(.form-refresh) .ui-dialog.ui-widget .ui-dialog-buttonpane button:last-child {
+    background: #146b60 !important; border-color: #146b60 !important; color: white !important;
+  }
+  body:has(.form-refresh) .ui-dialog.ui-widget .ui-dialog-buttonpane button span { color: inherit !important; padding: 0; }
+  body:has(.form-refresh) .ui-dialog :is(button,input,select,textarea,a):focus-visible { outline: 3px solid #168678; outline-offset: 2px; }
+  body:has(.form-refresh) .ui-dialog .errorDialog { border-radius: 6px; }
+  @media(max-width: 640px) {
+    body:has(.form-refresh) .ui-dialog.ui-widget { top: 12px !important; }
+    body:has(.form-refresh) .ui-dialog.ui-widget .ui-dialog-content { padding: 16px; }
+    body:has(.form-refresh) .ui-dialog.ui-widget .ui-dialog-titlebar { padding: 16px 48px 16px 18px; }
+    body:has(.form-refresh) #field_selector table :is(tbody,tr,td),
+    body:has(.form-refresh) #field-edit-table > tbody > tr,
+    body:has(.form-refresh) #field-edit-table > tbody > tr > :is(td,th) { display: block; width: 100% !important; box-sizing: border-box; }
+    body:has(.form-refresh) #field-edit-table > tbody > tr { margin-bottom: 12px; }
+  }
+}
+
+@media screen {
+  body:has(.form-refresh) .ui-dialog.ui-widget .ui-dialog-titlebar-close .ui-icon { background: none !important; }
+  body:has(.form-refresh) .ui-dialog.ui-widget .ui-dialog-titlebar-close::after { content: "×"; position: absolute; inset: 0; color: #526b68; font: 24px/28px sans-serif; text-align: center; }
+}
+@media screen {
+  body:has(.form-refresh) .ui-dialog.ui-widget .ui-dialog-titlebar-close { background: none !important; background-image: none !important; }
+  body:has(.form-refresh) .ui-dialog.ui-widget .ui-dialog-titlebar-close > span { opacity: 0; }
+  @media(max-width: 640px) {
+    body:has(.form-refresh) .ui-dialog.ui-widget { position: fixed !important; }
+  }
+}

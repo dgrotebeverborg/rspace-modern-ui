@@ -1284,6 +1284,7 @@ const UsersToolbar = ({ userListing, selectedCount }: GridSlotProps["toolbar"]) 
   };
   return (
     <DataGridToolbar
+      className="system-users-toolbar"
       aria-label={t("usersPage.tableActionsLabel")}
       style={{
         width: "100%",
@@ -1680,6 +1681,7 @@ export const UsersPage = (): React.ReactNode => {
       <ErrorBoundary topOfViewport>
         <Alerts>
           <Box
+            className="system-users-layout"
             sx={{
               width: "calc(100% - 16px)",
               backgroundColor: "#f5f5f5",
@@ -1687,6 +1689,7 @@ export const UsersPage = (): React.ReactNode => {
             }}
           >
             <Card
+              className="system-users-card"
               sx={{
                 border: (theme) => theme.borders.themedDialog?.(200, 90, 20),
                 m: 3,
@@ -1710,6 +1713,7 @@ export const UsersPage = (): React.ReactNode => {
                 }}
               >
                 <Box
+                  className="system-users-summary"
                   sx={{
                     position: "absolute",
                     top: 0,
@@ -1841,7 +1845,7 @@ export const UsersPage = (): React.ReactNode => {
                         }}
                         aria-label={t("usersPage.tableLabel")}
                         autoHeight
-                        columns={columns}
+                        columns={columns.map((column) => ({ minWidth: 120, ...column }))}
                         rows={FetchingData.match(userListing, {
                           loading: () => [] as Array<User>,
                           error: () => [] as Array<User>,

@@ -36,7 +36,8 @@
 </div>
 
 <div class="rs-working-area">
-    <div class="panel panel-default">
+    <div class="panel panel-default workspace-table-scroll" tabindex="0" role="region"
+         aria-label="<spring:message code='common:appBar.sections.workspace.title'/>">
         <input type="hidden" id="noOfRows" value="${fn:length(searchResults.results)}">
         <table id="file_table" class="table table-striped table-hover mainTable">
             <thead>

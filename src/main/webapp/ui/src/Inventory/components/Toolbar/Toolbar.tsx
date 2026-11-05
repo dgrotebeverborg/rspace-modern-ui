@@ -54,6 +54,7 @@ function CustomToolbar({ title, record, recordType, batch, stickyAlert }: Custom
 
   return (
     <AppBar
+      className="inventory-record-header"
       position="sticky"
       elevation={0}
       sx={{
@@ -91,12 +92,12 @@ function CustomToolbar({ title, record, recordType, batch, stickyAlert }: Custom
                * here to ensure that we have a higher specificity than the
                * theme
                */
-              style={{ color: "white" }}
+              style={{ color: "inherit" }}
             />
           </IconButton>
         )}
         <Box sx={{ flexGrow: 1, minWidth: 0 }}>{title}</Box>
-        <Box sx={{ minWidth: record?.recordType === "instrument" ? 57 : 90 }}>{record?.illustration}</Box>
+
         {record && record.id !== null && (
           <Stack>
             <Typography

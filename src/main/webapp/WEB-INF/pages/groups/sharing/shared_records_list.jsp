@@ -16,7 +16,18 @@
 	<script src="<rst:assetUrl value='/scripts/pages/utils/columnSortToggle.js'/>"></script>   
 </head>
 
-<jsp:include page="/WEB-INF/pages/admin/admin.jsp" />
+<c:choose>
+    <c:when test="${publishedLinks_for_sysadmin_to_manage}">
+        <script src="<rst:assetUrl value='/scripts/pages/utils/autocomplete_mod.js'/>"></script>
+        <script src="<rst:assetUrl value='/scripts/pages/system/system.js'/>"></script>
+        <div id="topSection" class="bootstrap-custom-flat">
+            <jsp:include page="/WEB-INF/pages/system/topBar.jsp" />
+        </div>
+    </c:when>
+    <c:otherwise>
+        <jsp:include page="/WEB-INF/pages/admin/admin.jsp" />
+    </c:otherwise>
+</c:choose>
 <jsp:include page="/WEB-INF/pages/recordInfoPanel.jsp" />
 
 <div class="tabularViewTop">

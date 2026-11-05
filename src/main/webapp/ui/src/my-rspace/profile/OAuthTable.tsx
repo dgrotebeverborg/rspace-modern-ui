@@ -113,7 +113,7 @@ export default function OAuthTable() {
   };
 
   return (
-    <Box sx={{ width: "690px", padding: "0px 15px" }}>
+    <Box sx={{ width: "100%", boxSizing: "border-box", overflowX: "auto", padding: "0px 15px" }}>
       <Box className="api-menu__header" sx={{ marginTop: "15px", display: "flex" }}>
         <Box sx={{ flexGrow: "1", lineHeight: "42px" }}>{t("profile.oauth.createdApps.title")}</Box>
         <OAuthDialog addApp={(app: OAuthApp) => addApp(app)} />

@@ -1,0 +1,80 @@
+/* Shared navigation for the full Inventory and Gallery pages, including mobile drawers. */
+@media screen {
+  :is(body:has([data-inventory-refresh]), body:has(.gallery-refresh)) .app-section-sidebar {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  :is(body:has([data-inventory-refresh]), body:has(.gallery-refresh)) .app-section-sidebar .MuiDrawer-paper {
+    background: white;
+    border-right: 1px solid #dbe5e3;
+    padding: 12px 8px;
+    box-sizing: border-box;
+    color: #203536;
+  }
+  :is(body:has([data-inventory-refresh]), body:has(.gallery-refresh))
+    .app-section-sidebar[data-expanded="true"]
+    .MuiDrawer-paper {
+    width: 200px;
+  }
+  :is(body:has([data-inventory-refresh]), body:has(.gallery-refresh))
+    .app-section-sidebar[data-expanded="false"]
+    .MuiDrawer-paper {
+    width: 64px;
+  }
+  :is(body:has([data-inventory-refresh]), body:has(.gallery-refresh)) .app-section-sidebar .MuiListItemButton-root {
+    border-radius: 8px;
+    margin: 3px 0;
+    padding: 8px 16px;
+    min-height: 42px;
+    color: #526b68;
+  }
+  :is(body:has([data-inventory-refresh]), body:has(.gallery-refresh))
+    .app-section-sidebar
+    .MuiListItemButton-root:hover {
+    background: #edf4f0;
+  }
+  :is(body:has([data-inventory-refresh]), body:has(.gallery-refresh))
+    .app-section-sidebar
+    .MuiListItemButton-root.Mui-selected {
+    background: #e1efe8;
+    color: #146b60;
+  }
+  :is(body:has([data-inventory-refresh]), body:has(.gallery-refresh))
+    .app-section-sidebar
+    .MuiListItemButton-root.Mui-selected:hover {
+    background: #d5e8dd;
+  }
+  :is(body:has([data-inventory-refresh]), body:has(.gallery-refresh)) .app-section-sidebar .MuiListItemIcon-root {
+    color: inherit;
+    min-width: 32px;
+  }
+  :is(body:has([data-inventory-refresh]), body:has(.gallery-refresh)) .app-section-sidebar .MuiTypography-root {
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.5;
+    text-transform: none;
+    font-weight: 550;
+    letter-spacing: 0;
+  }
+  :is(body:has([data-inventory-refresh]), body:has(.gallery-refresh))
+    .app-section-sidebar
+    .MuiButton-contained:not(.Mui-disabled) {
+    background: #146b60;
+    color: white;
+    border-radius: 8px;
+    text-transform: none;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    box-shadow: none;
+  }
+  :is(body:has([data-inventory-refresh]), body:has(.gallery-refresh)) .app-section-sidebar .MuiDivider-root {
+    border-color: #dbe5e3;
+  }
+  :is(body:has([data-inventory-refresh]), body:has(.gallery-refresh))
+    .app-section-sidebar
+    .MuiListItemButton-root:focus-visible {
+    outline: 3px solid #168678;
+    outline-offset: -3px;
+  }
+}

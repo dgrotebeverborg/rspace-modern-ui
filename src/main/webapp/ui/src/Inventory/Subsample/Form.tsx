@@ -65,9 +65,14 @@ const OverviewSection = observer(({ activeResult }: OverviewSectionArgs) => {
         <>
           <SampleField fieldOwner={activeResult} />
           <LocationField fieldOwner={activeResult} />
-          <ImageField fieldOwner={activeResult} alt={t("subsample.imageAlt")} />
         </>
       )}
+      <Quantity
+        fieldOwner={activeResult}
+        quantityCategory={activeResult.quantityCategory}
+        onErrorStateChange={(value) => setFormSectionError(formSectionError, "quantity", value)}
+        parentSample={activeResult.sample}
+      />
     </StepperPanel>
   );
 });
@@ -91,12 +96,9 @@ const DetailsSection = observer(({ activeResult }: DetailsSectionArgs) => {
       formSectionError={formSectionError}
       recordType="subSample"
     >
-      <Quantity
-        fieldOwner={activeResult}
-        quantityCategory={activeResult.quantityCategory}
-        onErrorStateChange={(value) => setFormSectionError(formSectionError, "quantity", value)}
-        parentSample={activeResult.sample}
-      />
+      {activeResult.readAccessLevel !== "public" && (
+        <ImageField fieldOwner={activeResult} alt={t("subsample.imageAlt")} />
+      )}
       <DescriptionField
         fieldOwner={activeResult}
         onErrorStateChange={(e) => setFormSectionError(formSectionError, "description", e)}

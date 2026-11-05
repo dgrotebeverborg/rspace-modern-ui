@@ -1,5 +1,6 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -112,7 +113,14 @@ function LeftPanelView(): React.ReactNode {
       aria-label={t("search.navigation.label")}
     >
       <Box sx={{ width: "100%" }}>
-        <Search handleSearch={handleSearch} searchbarAdornment={<RightPanelToggle />} />
+        <Typography component="h1" sx={{ fontSize: 26, fontWeight: 650, mb: 2, color: "#203536" }}>
+          {t("pageTitle")}
+        </Typography>
+        <Search
+          collapsibleFilters
+          handleSearch={handleSearch}
+          searchbarAdornment={searchStore.activeResult ? <RightPanelToggle /> : undefined}
+        />
         {showLeftBreadcrumbs && recordForBreadcrumbs && (
           <Breadcrumbs record={recordForBreadcrumbs} showCurrent={false} />
         )}

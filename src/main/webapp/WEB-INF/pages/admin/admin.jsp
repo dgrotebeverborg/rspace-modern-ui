@@ -14,9 +14,14 @@
 <link rel="stylesheet" href="<rst:assetUrl value='/styles/admin.css'/>" />
 <script src="<rst:assetUrl value='/scripts/pages/utils/autocomplete_mod.js'/>"></script>
 <script src="<rst:assetUrl value='/scripts/pages/admin.js'/>"></script>
+<link rel="stylesheet" href="<rst:assetUrl value='/styles/pages/myrspace-refresh.css'/>" />
+
+<link rel="stylesheet" href="<rst:assetUrl value='/styles/pages/myrspace-content-refresh.css'/>" />
 
 <div class="separator"></div>
-<div id="menuScrollContainer">
+<details id="myrspace-navigation" open>
+  <summary><spring:message code="common:appBar.sections.myRSpace.title"/></summary>
+<div id="menuScrollContainer" data-myrspace-nav role="navigation" aria-label="<spring:message code='common:appBar.sections.myRSpace.title'/>">
   <button type="button" class="menuScrollButton leftScroller bootstrap-custom-flat" aria-label="<spring:message code='menu.scrollButtons.previous'/>">
     <span class="glyphicon glyphicon-chevron-left"></span>
   </button>
@@ -175,3 +180,4 @@
     <span class="glyphicon glyphicon-chevron-right"></span>
   </button>
 </div>
+</details>

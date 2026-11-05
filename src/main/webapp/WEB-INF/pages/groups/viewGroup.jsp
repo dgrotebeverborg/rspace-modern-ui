@@ -2,6 +2,7 @@
 <%@ taglib prefix="f" uri="http://researchspace.com/functions" %>
 <%-- JSP to view the information about a group --%>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
   <title><spring:message code="groups.view.title"/></title>
   <meta name="heading" content="<spring:message code='groups.heading'/>"/>
   <meta name="menu" content="MainMenu"/>
@@ -40,7 +41,7 @@
 </head>
 
 <jsp:include page="/WEB-INF/pages/admin/admin.jsp" />
-<p style="visibility:hidden;">space holder</p>
+
 
 <spring:message code="groups.view.homeFolder.notAvailable" var="homeFolderNotAvailableTitle"/>
 <spring:message code="groups.view.homeFolder.goTo" var="goToHomeFolderTitle"/>
@@ -166,7 +167,7 @@
 </div>
 <axt:export/>
 
-    <div style="margin-bottom: 2em">
+    <div class="myrspace-shared-folder">
       <h3><spring:message code="groups.view.sharedFolder.heading"/></h3>
       <c:if test="${empty folder}">
         <span style="font-size: 1.2em"><spring:message code="groups.view.sharedFolder.missing"/></span>

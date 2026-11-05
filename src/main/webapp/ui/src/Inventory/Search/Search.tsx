@@ -15,6 +15,7 @@ import SearchParameterControls from "./components/SearchParameterControls";
 
 type MainSearchArgs = {
   size?: "small" | "default";
+  collapsibleFilters?: boolean;
   TABS?: Array<SearchView>;
   handleSearch: (query: string) => void;
   searchbarAdornment?: React.ReactNode;
@@ -22,6 +23,7 @@ type MainSearchArgs = {
 
 function MainSearch({
   size = "default",
+  collapsibleFilters = false,
   handleSearch,
   TABS = ["LIST", "TREE", "CARD"],
   searchbarAdornment,
@@ -37,9 +39,16 @@ function MainSearch({
         {size === "small" && <SearchDisplayControls TABS={TABS} />}
         {Boolean(searchbarAdornment) && searchbarAdornment}
       </Stack>
-      <Box sx={{ pt: 0 }}>
-        <SearchParameterControls />
-      </Box>
+      {collapsibleFilters ? (
+        <details className="inventory-filters">
+          <summary>{t("search.filtersAndViews")}</summary>
+          <SearchParameterControls />
+        </details>
+      ) : (
+        <Box sx={{ pt: 0 }}>
+          <SearchParameterControls />
+        </Box>
+      )}
       <Box sx={{ maxWidth: "100% !important" }}>
         <SearchParameterChips />
       </Box>

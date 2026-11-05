@@ -55,7 +55,7 @@ export default function AccountActivity(props: any) {
   return (
     <StyledEngineProvider injectFirst enableCssLayer>
       <ThemeProvider theme={materialTheme}>
-        <Box sx={{ width: "690px", padding: "0px 15px" }}>
+        <Box sx={{ width: "100%", boxSizing: "border-box", overflowX: "auto", padding: "0px 15px" }}>
           {!fetched && (
             <Button color="primary" onClick={loadUserActivity}>
               {t("profile.accountActivity.show")}

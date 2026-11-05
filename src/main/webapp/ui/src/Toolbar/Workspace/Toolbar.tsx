@@ -64,7 +64,7 @@ class WorkspaceToolbar extends React.Component<WorkspaceToolbarProps> {
   }
 
   componentDidMount() {
-    this.checkSavedSettings();
+    if (this.props.domContainer.dataset.home !== "true") this.checkSavedSettings();
 
     $(document).on("click", "#resetSearch", () => {
       abandonSearch();
@@ -280,9 +280,30 @@ class WorkspaceToolbar extends React.Component<WorkspaceToolbarProps> {
   };
 
   content = () => {
+    if (this.props.domContainer.dataset.home === "true") {
+      return (
+        <Box className="home-actions">
+          <CreateMenu
+            label={i18n.t("workspace:home.new")}
+            pioEnabled={this.state.pioEnabled}
+            asposeEnabled={this.state.asposeEnabled}
+          />
+          <a className="home-files-button" href="/workspace?view=files&currentViewMode=LIST_VIEW">
+            {i18n.t("workspace:home.files")}
+          </a>
+          <a
+            className="home-search-link"
+            href="/workspace?view=files&currentViewMode=LIST_VIEW&viewableItemsFilter=true"
+          >
+            {i18n.t("workspace:home.search")}
+          </a>
+        </Box>
+      );
+    }
     return (
       <Box
         component="span"
+        className="workspace-toolbar-content"
         sx={{
           display: "flex",
           width: "100%",
@@ -357,7 +378,7 @@ class WorkspaceToolbar extends React.Component<WorkspaceToolbarProps> {
         </Menu>
         {this.state.treeView && <TreeSort />}
         {!this.state.treeView && (
-          <Box component="span" sx={{ display: "flex", flexGrow: "1" }}>
+          <Box component="span" className="workspace-filters" sx={{ display: "flex", flexGrow: "1" }}>
             <Tooltip title={i18n.t("workspace:toolbar.workspaceToolbar.viewMode")} enterDelay={300}>
               <IconButton
                 data-test-id="toolbar-views-2"
@@ -403,6 +424,9 @@ class WorkspaceToolbar extends React.Component<WorkspaceToolbarProps> {
                 aria-label={i18n.t("workspace:toolbar.workspaceToolbar.labgroupRecords")}
               >
                 <FontAwesomeIcon icon={faUsers} />
+                <span className="workspace-filter-label">
+                  {i18n.t("workspace:toolbar.workspaceToolbar.labgroupRecords")}
+                </span>
               </IconButton>
             </Tooltip>
             <Box
@@ -421,10 +445,12 @@ class WorkspaceToolbar extends React.Component<WorkspaceToolbarProps> {
                 id="favoritesFilter_1"
                 color={this.state.favoritesFilter ? "default" : "inherit"}
                 className={this.state.favoritesFilter ? "active" : ""}
+                aria-pressed={Boolean(this.state.favoritesFilter)}
                 data-test-id="toolbar-filter-favorites"
                 aria-label={i18n.t("workspace:toolbar.workspaceToolbar.favorites")}
               >
                 <FontAwesomeIcon icon={faStar} />
+                <span className="workspace-filter-label">{i18n.t("workspace:toolbar.workspaceToolbar.favorites")}</span>
               </IconButton>
             </Tooltip>
             <Tooltip title={i18n.t("workspace:toolbar.workspaceToolbar.sharedWithMe")} enterDelay={300}>
@@ -436,10 +462,14 @@ class WorkspaceToolbar extends React.Component<WorkspaceToolbarProps> {
                 id="sharedFilter_1"
                 color={this.state.sharedFilter ? "default" : "inherit"}
                 className={this.state.sharedFilter ? "active" : ""}
+                aria-pressed={Boolean(this.state.sharedFilter)}
                 data-test-id="toolbar-filter-shared"
                 aria-label={i18n.t("workspace:toolbar.workspaceToolbar.sharedWithMe")}
               >
                 <FontAwesomeIcon icon={faShareAlt} />
+                <span className="workspace-filter-label">
+                  {i18n.t("workspace:toolbar.workspaceToolbar.sharedWithMe")}
+                </span>
               </IconButton>
             </Tooltip>
             <Tooltip title={i18n.t("workspace:toolbar.workspaceToolbar.templates")} enterDelay={300}>
@@ -451,22 +481,26 @@ class WorkspaceToolbar extends React.Component<WorkspaceToolbarProps> {
                 id="templatesFilter_1"
                 color={this.state.templatesFilter ? "default" : "inherit"}
                 className={this.state.templatesFilter ? "active" : ""}
+                aria-pressed={Boolean(this.state.templatesFilter)}
                 data-test-id="toolbar-filter-templates"
                 aria-label={i18n.t("workspace:toolbar.workspaceToolbar.templates")}
               >
-                <FontAwesomeIcon icon={faFolder} />
-                <Box
-                  component="span"
-                  sx={{
-                    position: "absolute",
-                    color: "#00adef",
-                    fontSize: "13px",
-                    fontWeight: "bold",
-                    marginTop: "1px",
-                  }}
-                >
-                  {"T"}
-                </Box>
+                <span className="workspace-folder-icon">
+                  <FontAwesomeIcon icon={faFolder} />
+                  <Box
+                    component="span"
+                    sx={{
+                      position: "absolute",
+                      color: "#00adef",
+                      fontSize: "13px",
+                      fontWeight: "bold",
+                      marginTop: "1px",
+                    }}
+                  >
+                    {"T"}
+                  </Box>
+                </span>
+                <span className="workspace-filter-label">{i18n.t("workspace:toolbar.workspaceToolbar.templates")}</span>
               </IconButton>
             </Tooltip>
             <Tooltip title={i18n.t("workspace:toolbar.workspaceToolbar.ontologyFiles")} enterDelay={300}>
@@ -478,22 +512,28 @@ class WorkspaceToolbar extends React.Component<WorkspaceToolbarProps> {
                 id="ontologiesFilter_1"
                 color={this.state.ontologiesFilter ? "default" : "inherit"}
                 className={this.state.ontologiesFilter ? "active" : ""}
+                aria-pressed={Boolean(this.state.ontologiesFilter)}
                 data-test-id="toolbar-filter-ontology"
                 aria-label={i18n.t("workspace:toolbar.workspaceToolbar.ontologyFiles")}
               >
-                <FontAwesomeIcon icon={faFolder} />
-                <Box
-                  component="span"
-                  sx={{
-                    position: "absolute",
-                    color: "#00adef",
-                    fontSize: "13px",
-                    fontWeight: "bold",
-                    marginTop: "1px",
-                  }}
-                >
-                  {"O"}
-                </Box>
+                <span className="workspace-folder-icon">
+                  <FontAwesomeIcon icon={faFolder} />
+                  <Box
+                    component="span"
+                    sx={{
+                      position: "absolute",
+                      color: "#00adef",
+                      fontSize: "13px",
+                      fontWeight: "bold",
+                      marginTop: "1px",
+                    }}
+                  >
+                    {"O"}
+                  </Box>
+                </span>
+                <span className="workspace-filter-label">
+                  {i18n.t("workspace:toolbar.workspaceToolbar.ontologyFiles")}
+                </span>
               </IconButton>
             </Tooltip>
             <Box
@@ -504,12 +544,14 @@ class WorkspaceToolbar extends React.Component<WorkspaceToolbarProps> {
                 height: "100%",
               }}
             ></Box>
-            <SimpleSearch
-              ref={this.simpleSearch}
-              toggleAdvanced={this.toggleAdvanced}
-              advancedOpen={this.state.advancedOpen}
-              hideIcons={this.handleHideIcons}
-            />
+            <Box className="workspace-search" sx={{ flex: "1 1 320px", minWidth: 0 }}>
+              <SimpleSearch
+                ref={this.simpleSearch}
+                toggleAdvanced={this.toggleAdvanced}
+                advancedOpen={this.state.advancedOpen}
+                hideIcons={this.handleHideIcons}
+              />
+            </Box>
           </Box>
         )}
       </Box>

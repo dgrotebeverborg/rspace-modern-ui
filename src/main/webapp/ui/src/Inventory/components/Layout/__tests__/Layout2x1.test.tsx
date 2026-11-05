@@ -98,3 +98,16 @@ describe("Layout2x1", () => {
     });
   });
 });
+
+test("keeps the listing visible when details clear while the right panel was active", () => {
+  const rootStore = makeMockRootStore({ uiStore: { visiblePanel: "right" } });
+  render(
+    <ThemeProvider theme={materialTheme}>
+      <storesContext.Provider value={rootStore}>
+        <Layout2x1 showDetails={false} colLeft="Inventory listing" colRight="Record details" />
+      </storesContext.Provider>
+    </ThemeProvider>,
+  );
+  expect(screen.getByText("Inventory listing")).toBeVisible();
+  expect(screen.getByText("Record details")).not.toBeVisible();
+});

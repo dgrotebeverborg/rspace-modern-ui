@@ -21,7 +21,7 @@ export default function OAuthTrigger() {
       <ThemeProvider theme={materialTheme}>
         <Alerts>
           {!open && (
-            <Box sx={{ width: "690px", padding: "0px 15px" }}>
+            <Box sx={{ width: "100%", boxSizing: "border-box", overflowX: "auto", padding: "0px 15px" }}>
               <Button color="primary" onClick={handleOpen}>
                 {t("profile.oauth.createdApps.show")}
               </Button>

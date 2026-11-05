@@ -107,15 +107,6 @@ export default class UiStore {
       if (!wasSingleColumnLayout && isNowSingleColumnLayout) this.toggleSidebar(false);
       if (wasSingleColumnLayout && !isNowSingleColumnLayout) {
         this.toggleSidebar(true);
-
-        /*
-         * Make the first search result the active result when transitioning
-         * from a small viewport to a large one.
-         */
-        const { search } = this.rootStore.searchStore;
-        if (!search.activeResult && search.filteredResults.length > 0) {
-          void search.setActiveResult();
-        }
       }
     });
     this.updateViewportSize();

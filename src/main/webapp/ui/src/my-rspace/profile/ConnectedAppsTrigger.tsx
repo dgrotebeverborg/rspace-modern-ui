@@ -19,7 +19,7 @@ export default function ConnectedAppsTrigger() {
     <StyledEngineProvider injectFirst enableCssLayer>
       <ThemeProvider theme={materialTheme}>
         {!open && (
-          <Box sx={{ width: "690px", padding: "0px 15px" }}>
+          <Box sx={{ width: "100%", boxSizing: "border-box", overflowX: "auto", padding: "0px 15px" }}>
             <Button color="primary" onClick={handleOpen}>
               {t("profile.oauth.connectedApps.show")}
             </Button>

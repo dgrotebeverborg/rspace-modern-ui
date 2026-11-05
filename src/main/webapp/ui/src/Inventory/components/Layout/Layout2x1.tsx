@@ -78,6 +78,7 @@ type Layout2x1Args = {
   colRight: React.ReactNode;
   colLeft: React.ReactNode;
   isDialog?: boolean;
+  showDetails?: boolean;
 };
 
 /*
@@ -87,8 +88,8 @@ type Layout2x1Args = {
 const Layout2x1 = observer((props: Layout2x1Args) => {
   const { uiStore } = useStores();
   const isSingleColumnLayout = useIsSingleColumnLayout();
-  const hideLeftPanel = isSingleColumnLayout && uiStore.visiblePanel !== "left";
-  const hideRightPanel = isSingleColumnLayout && uiStore.visiblePanel !== "right";
+  const hideLeftPanel = props.showDetails !== false && isSingleColumnLayout && uiStore.visiblePanel !== "left";
+  const hideRightPanel = props.showDetails === false || (isSingleColumnLayout && uiStore.visiblePanel !== "right");
   return (
     <Grid
       container
@@ -115,7 +116,7 @@ const Layout2x1 = observer((props: Layout2x1Args) => {
                 height: "100%",
               }
         }
-        size={isSingleColumnLayout ? 12 : 5}
+        size={isSingleColumnLayout || props.showDetails === false ? 12 : props.isDialog ? 5 : 7}
       >
         {props.colLeft}
       </Grid>
@@ -126,7 +127,7 @@ const Layout2x1 = observer((props: Layout2x1Args) => {
           flexDirection: "column",
         }}
         hidden={hideRightPanel}
-        size={isSingleColumnLayout ? 12 : 7}
+        size={isSingleColumnLayout ? 12 : props.isDialog ? 7 : 5}
       >
         {props.colRight}
       </Grid>

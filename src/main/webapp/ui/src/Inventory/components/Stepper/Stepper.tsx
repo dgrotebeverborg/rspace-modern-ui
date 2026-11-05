@@ -127,7 +127,7 @@ function _Stepper({
       >
         {titleText}
       </Typography>
-      {helpLink && <HelpLinkIcon link={helpLink.link} title={helpLink.title} size="small" color="white" />}
+      {helpLink && <HelpLinkIcon link={helpLink.link} title={helpLink.title} size="small" color="inherit" />}
     </Stack>
   );
 

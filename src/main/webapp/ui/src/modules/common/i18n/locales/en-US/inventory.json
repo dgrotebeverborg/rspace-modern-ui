@@ -2581,6 +2581,7 @@
       "topLevelContainers": "{count} top-level containers found.",
       "undetermined": "Results cannot be fully determined."
     },
+    "filtersAndViews": "Filters and saved searches",
     "helpTitle": "Info on searching Inventory.",
     "navigation": {
       "label": "Search and Navigation"

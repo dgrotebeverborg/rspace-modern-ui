@@ -1,25 +1,11 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<script>
-    var recordId = "${recordId}"; // the record id of the current workspace view.
-    <c:if test="${not empty searchConfig}">
-      var isWorkspaceSearch = true;
-    </c:if>
-    var workspaceSettings = $.parseJSON(RS.unescape('${workspaceConfigJson}'));
-    workspaceSettings.resultsPerPage = ${numberRecords};
-    workspaceSettings.searchMode = false;
-    var settingsKey = '${settingsKey}';
-    var isSysAdmin = false;
-    <shiro:hasAnyRoles name="ROLE_SYSADMIN">
-      isSysAdmin = true;
-    </shiro:hasAnyRoles>
-</script>
-
 <title>
   <spring:message code="common:appBar.sections.workspace.title" />
 </title>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="heading" content="<spring:message code='common:appBar.sections.workspace.title'/>" />
   <link rel="stylesheet" href="<rst:assetUrl value='/styles/pages/workspace/workspace.css'/>" />
 
@@ -60,14 +46,53 @@
 
   <!-- Moved to default.jsp -->
   <!-- <script src="<rst:assetUrl value='/scripts/bower_components/bootstrap/dist/js/bootstrap.js'/>"></script> -->
+  <link rel="stylesheet" href="<rst:assetUrl value='/styles/pages/workspace/workspace-refresh.css'/>" />
 </head>
+
+<body class="workspace-refresh ${workspaceHome ? 'workspace-home' : ''}">
+<%-- Keep bootstrap data inside the body: SiteMesh drops content outside explicit head/body tags. --%>
+<script>
+    var recordId = "${recordId}"; // the record id of the current workspace view.
+    <c:if test="${not empty searchConfig}">
+      var isWorkspaceSearch = true;
+    </c:if>
+    var workspaceSettings = $.parseJSON(RS.unescape('${workspaceConfigJson}'));
+    workspaceSettings.resultsPerPage = ${numberRecords};
+    workspaceSettings.searchMode = false;
+    var settingsKey = '${settingsKey}';
+    var isSysAdmin = false;
+    <shiro:hasAnyRoles name="ROLE_SYSADMIN">
+      isSysAdmin = true;
+    </shiro:hasAnyRoles>
+</script>
+<header class="workspace-heading">
+  <c:choose>
+    <c:when test="${workspaceHome}">
+      <h1><c:choose>
+        <c:when test="${homeSection eq 'notebooks'}"><spring:message code="workspace:home.notebooks" /></c:when>
+        <c:when test="${homeSection eq 'documents'}"><spring:message code="workspace:home.documents" /></c:when>
+        <c:otherwise><spring:message code="workspace:home.title" /></c:otherwise>
+      </c:choose></h1>
+      <p class="home-intro"><spring:message code="workspace:home.intro" /></p>
+    </c:when>
+    <c:otherwise>
+      <a class="home-back" href="/workspace"><spring:message code="workspace:home.back" /></a>
+      <h1><spring:message code="workspace:home.files" /></h1>
+    </c:otherwise>
+  </c:choose>
+</header>
 
 <div
   id="toolbar2"
+  data-home="${workspaceHome}"
   data-pio-enabled="${pioEnabled}"
   data-aspose-enabled="${asposeEnabled}"
   data-labgroups-folder-id="${labgroupsFolderId}">
 </div>
+
+<c:if test="${workspaceHome}">
+  <jsp:include page="workspace_home.jsp" />
+</c:if>
 
 <div id="createDocForm">
   <!-- Importing script for word files manipulation -->
@@ -146,3 +171,5 @@ $(document).ready(function() {
 <rst:bundle bundle="exportModal" />
 <rst:bundle bundle="workspaceToolbar" />
 <!--End React Scripts -->
+
+</body>

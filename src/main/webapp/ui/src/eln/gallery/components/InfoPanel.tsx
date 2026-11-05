@@ -986,6 +986,7 @@ export const InfoPanelForSmallViewports: React.ComponentType<{
   const { trackEvent } = React.useContext(AnalyticsContext);
   return (
     <SwipeableDrawer
+      className="gallery-mobile-details"
       key={null}
       anchor="bottom"
       open={mobileInfoPanelOpen}

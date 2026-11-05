@@ -11,11 +11,17 @@
 
 <title><spring:message code="menu.templates.formEditor"/></title>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="heading" content="<spring:message code='form.editor.metaHeading'/>"/>
 </head>
+<div class="form-refresh">
 <jsp:include page="/WEB-INF/pages/admin/admin.jsp" />
+<header class="form-heading">
+  <h1><spring:message code="menu.templates.formEditor"/></h1>
+  <p><spring:message code="form.editor.addFieldTitle"/></p>
+</header>
 <jsp:include page="formMustacheTemplates.html" />
-<p style="visibility:hidden;">Text</p>
+
 
 <axt:toolbar hideSearch="true">
 	<jsp:attribute name="menu">
@@ -195,3 +201,6 @@
 	var modificationDate = '${modificationDate}';
 	var recordId = "${template.id}";
 </script>
+
+</div>
+<link rel="stylesheet" href="<rst:assetUrl value='/styles/pages/workspace/form-refresh.css'/>" />

@@ -1,0 +1,109 @@
+/* Scoped to the authenticated structured-document view, including its legacy
+   tree-mode classes. Keep editor fields, actions and permission gates intact. */
+@media screen {
+  body:has(.document-refresh) {
+    background: #f3f6f5;
+    color: #203536;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  body:has(.document-refresh) #page,
+  body:has(.document-refresh) #page #main,
+  body:has(.document-refresh) #page #content {
+    width: 100%; max-width: none; min-width: 0; box-sizing: border-box;
+  }
+  body:has(.document-refresh) #page { padding: 24px; }
+  body:has(.document-refresh) #main { padding: 0; }
+  body:has(.document-refresh) #page #header { width: auto; margin-left: 0; }
+  .document-refresh { gap: 20px; align-items: flex-start; }
+  .document-refresh .documentPanel { flex: 1; min-width: 0; max-width: none; }
+  .document-refresh #fileBrowsing {
+    flex: 0 0 280px; width: 280px !important; margin: 0;
+    border: 1px solid #dbe5e3; border-radius: 14px;
+    background: #fff; overflow: auto; top: 16px;
+    max-height: calc(100vh - 100px);
+  }
+  .document-refresh #fancyTree { border: 0; padding: 12px 8px 20px; }
+  .document-refresh .fancytree-node { min-height: 36px; line-height: 36px; }
+  .document-refresh .fancytree-title { padding: 0 6px; border-radius: 6px; color: #405857; font-size: 13px; }
+  .document-refresh .fancytree-active .fancytree-title,
+  .document-refresh .fancytree-selected .fancytree-title { background: #e1f0e9 !important; color: #12685c !important; border-color: transparent !important; }
+  .document-refresh #toolbar2 .MuiAppBar-root,
+  .document-refresh #fileTreeToolbar .MuiAppBar-root {
+    background: #fff; color: #405857; box-shadow: none;
+    border: 1px solid #dbe5e3; border-radius: 14px;
+  }
+  .document-refresh #fileTreeToolbar .MuiAppBar-root { border: 0; border-bottom: 1px solid #dbe5e3; border-radius: 0; }
+  .document-refresh #toolbar2 .MuiToolbar-root { padding: 10px 14px; min-height: 54px; }
+  .document-refresh #toolbar2 .MuiToolbar-root > span { flex-wrap: wrap; align-items: center; gap: 4px; }
+  .document-refresh #toolbar2 .MuiButton-root { color: #405857; font-size: 14px; font-weight: 600; text-transform: none; border-radius: 8px; min-height: 40px; }
+  .document-refresh #toolbar2 .MuiButton-outlined { background: #146b60; color: white; border-color: #146b60; margin-right: 8px; padding: 8px 22px; }
+  .document-refresh #toolbar2 .MuiIconButton-root,
+  .document-refresh #fileTreeToolbar .MuiIconButton-root { color: #526b68; width: 40px; height: 40px; font-size: 18px; border-radius: 8px; }
+  .document-refresh #toolbar2 .MuiButton-root:hover,
+  .document-refresh #toolbar2 .MuiIconButton-root:hover { background: #e3eee9; color: #146b60; }
+  .document-refresh #fileTreeToolbar .MuiButton-root { font-size: 12px; box-shadow: none; border: 1px solid #dbe5e3; border-radius: 6px; }
+  .document-refresh #showFileTreeSmall { background: white; color: #146b60; border: 1px solid #dbe5e3; border-radius: 8px; min-width: 32px; height: 48px; margin: 0; }
+  body:has(.document-refresh) #page .document-refresh .breadcrumb,
+  body:has(.document-refresh) #page .document-refresh .breadcrumb .container { width: 100%; box-sizing: border-box; background: transparent; }
+  .document-refresh .breadcrumb { margin: 12px 0; border: 0; }
+  .document-refresh .breadcrumb .container { flex-wrap: wrap; gap: 12px; padding: 8px 4px; font-size: 14px; }
+  .document-refresh a { color: #146b60; }
+  .document-refresh .rs-record-info-panel { background: #fff; border: 1px solid #dbe5e3; border-radius: 14px; padding: 18px 20px; margin-bottom: 18px; }
+  .document-refresh .rs-record-header-line { max-width: 100%; }
+  .document-refresh #structuredDocument { width: 100%; table-layout: fixed; border: 0; background: #fff; border-radius: 14px; }
+  .document-refresh #structuredDocument > tbody > tr > td { border-color: #dbe5e3; padding: 16px; overflow-wrap: anywhere; }
+  .document-refresh .field-value { max-width: 100%; }
+  .document-refresh .tox-tinymce { border: 1px solid #dbe5e3; border-radius: 10px; }
+  .document-refresh .tox .tox-menubar,
+  .document-refresh .tox .tox-toolbar,
+  .document-refresh .tox .tox-toolbar__primary,
+  .document-refresh .tox .tox-toolbar__overflow { background: #f7f9f8; }
+  .document-refresh .tox .tox-mbtn { font-size: 13px; color: #405857; }
+  .document-refresh .tox .tox-tbtn { border-radius: 6px; }
+  .document-refresh .tox .tox-tbtn svg { fill: #405857; }
+  .document-refresh .tox .tox-tbtn:hover,
+  .document-refresh .tox .tox-tbtn--enabled { background: #e0eee7; }
+  .document-refresh .attachmentsListing { margin-top: 20px; padding: 20px; background: white; border: 1px solid #dbe5e3; border-radius: 14px; }
+  .document-refresh .attachmentsListing .container { width: 100%; }
+  .document-refresh :is(button,a,input,select):focus-visible { outline: 3px solid #168678; outline-offset: 3px; }
+  @media (max-width: 800px) {
+    body:has(.document-refresh) #page { padding: 12px; }
+    .document-refresh { gap: 8px; flex-wrap: wrap; }
+    .document-refresh #fileBrowsing { flex-basis: 100%; width: 100% !important; position: relative !important; top: auto; max-height: 260px; }
+    .document-refresh .documentPanel { flex-basis: calc(100% - 40px); }
+    .document-refresh #toolbar2 .MuiToolbar-root { padding: 6px; }
+    .document-refresh #structuredDocument > tbody > tr > td { padding: 8px; }
+    .document-refresh .rs-record-info-panel { padding: 12px; }
+  }
+  body:has(.document-refresh) #footer { width: 100%; max-width: 100%; box-sizing: border-box; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; padding: 24px 0; }
+  .document-refresh #hideFileTreeSmall { color: #146b60; padding: 8px 4px; }
+  .document-refresh .rs-record-info-panel { width: 100%; max-width: none; box-sizing: border-box; margin-left: 0; margin-right: 0; }
+  .document-refresh .rs-record-header-line .row:first-child::before,
+  .document-refresh .rs-record-header-line .row:first-child::after { display: none; }
+  .document-refresh .rs-record-header-line .row:first-child { display: grid; grid-template-columns: minmax(0,2fr) minmax(0,1fr) auto; gap: 20px; margin: 0; align-items: start; }
+  .document-refresh .rs-record-header-line .row:first-child > [class*="col-"] { width: auto; float: none; padding: 0; min-width: 0; }
+  .document-refresh #inlineRenameRecordForm { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .document-refresh #inlineRenameRecordForm label { flex-basis: 100%; font-size: 12px; color: #637874; font-weight: 500; }
+  .document-refresh #inlineRenameRecordForm #recordNameInHeader { font-size: 24px; line-height: 1.35; font-weight: 650; color: #203536; overflow-wrap: anywhere; }
+  .document-refresh #recordNameInHeaderEditor { max-width: 100%; box-sizing: border-box; }
+  .document-refresh .rs-global-id { font-size: 12px; }
+  .document-refresh .displayRevisionsContainer { font-size: 12px; color: #637874; margin-top: 12px; }
+  .document-refresh .bootstrap-custom-flat .breadcrumb { background: transparent; }
+  .document-refresh .bootstrap-custom-flat a { color: #146b60; }
+  .document-refresh .attachmentsListing .btn-primary { background: #e5f1eb; color: #146b60; border: 1px solid #c8ddd3; border-radius: 6px; }
+  @media (max-width: 800px) {
+    .document-refresh .rs-record-header-line .row:first-child { grid-template-columns: minmax(0,1fr); gap: 14px; }
+    .document-refresh .rs-record-header-line .rs-global-id { float: none; text-align: left; }
+    .document-refresh .displayRevisionsContainer { float: none; }
+    .document-refresh #inlineRenameRecordForm #recordNameInHeader { font-size: 22px; }
+  }
+  .document-refresh #inlineRenameRecordForm.info-panel,
+  .document-refresh #inlineRenameRecordForm #recordNameInHeader { height: auto; }
+  .document-refresh .rs-record-info-panel { font-family: inherit; }
+  .document-refresh .field-value-inner { max-width: 100%; }
+  .document-refresh .choiceClass > table { width: 100%; table-layout: fixed; }
+  .document-refresh .textFieldViewModeDiv { overflow-x: auto; max-width: 100%; }
+  @media (max-width: 800px) {
+    .document-refresh .rs-record-header-line .rs-global-id { float: none !important; }
+  }
+}

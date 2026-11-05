@@ -144,7 +144,8 @@ $(document).ready(function () {
     $("#field-editor").dialog({
       resizable: false,
       autoOpen: false,
-      height: 500,
+      height: "auto",
+      maxHeight: Math.max(240, window.innerHeight - 24),
       width: 550,
       modal: true,
       buttons: {
@@ -397,6 +398,11 @@ function loadFieldForm() {
         $('#fieldEditorSelect').attr('disabled', false);
       }
       $("#field-editor-form").append(data);
+      // Refit and recenter after the selected field's settings arrive.
+      $("#field-editor").dialog("option", {
+        height: "auto",
+        maxHeight: Math.max(240, window.innerHeight - 24)
+      });
       fieldFormValidation(name);
     });
   }
@@ -415,6 +421,10 @@ function editField(id) {
   }, function (data) {
     $('#field-loading').hide();
     $("#field-editor-form").append(data);
+    $("#field-editor").dialog("option", {
+      height: "auto",
+      maxHeight: Math.max(240, window.innerHeight - 24)
+    });
     var name = $("#fieldFormType").val();
 
     // Date needs to be initialize on a different way if you are editing.

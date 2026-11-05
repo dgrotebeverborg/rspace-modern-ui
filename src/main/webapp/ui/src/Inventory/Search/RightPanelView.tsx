@@ -8,7 +8,6 @@ import { useLandmark } from "../../components/LandmarksContext";
 import LoadingCircular from "../../components/LoadingCircular";
 import type { RecordType } from "../../stores/definitions/InventoryRecord";
 import useStores from "../../stores/use-stores";
-import { UserCancelledAction } from "../../util/error";
 import ContainerBatchForm from "../Container/BatchForm";
 import ContainerForm from "../Container/Form";
 import ContainerNewRecordForm from "../Container/NewRecordForm";
@@ -80,27 +79,8 @@ BorderContainer.displayName = "BorderContainer";
 
 function RightPanelView(): ReactNode {
   const { t } = useTranslation("inventory");
-  const { searchStore, uiStore } = useStores();
-  const isSingleColumnLayout = useIsSingleColumnLayout();
-  const isSingleColumnLayoutRef = React.useRef(isSingleColumnLayout);
-  isSingleColumnLayoutRef.current = isSingleColumnLayout;
+  const { searchStore } = useStores();
   const mainContentRef = useLandmark("Details Panel");
-
-  React.useEffect(() => {
-    void (async () => {
-      if (!searchStore.activeResult && searchStore.search.filteredResults.length && !isSingleColumnLayout) {
-        try {
-          await searchStore.search.setActiveResult();
-          // The user may have hidden the right panel while the record loaded;
-          // switching panels now would hide the search results they are using.
-          if (!isSingleColumnLayoutRef.current) uiStore.setVisiblePanel("right");
-        } catch (e) {
-          if (e instanceof UserCancelledAction) return;
-          throw e;
-        }
-      }
-    })();
-  }, [searchStore.search.filteredResults]);
 
   const noActiveResult = () => {
     const search = searchStore.search;

@@ -1,0 +1,139 @@
+/* Shared My RSpace navigation; existing permission and action handlers remain in place. */
+@media screen {
+  .form-refresh .separator { display: none; }
+  #menuScrollContainer[data-myrspace-nav] { width: 100%; background: transparent; height: auto; border: 0; padding: 0; margin: 0 0 24px; }
+  #menuScrollContainer[data-myrspace-nav] #menuFixer { width: 100%; height: auto; overflow: visible; float: none; border: 0; background: transparent; }
+  #menuScrollContainer[data-myrspace-nav] #menuFixer #menuMover { display: flex; flex-wrap: wrap; gap: 6px; width: auto; height: auto; padding: 0; margin: 0; background: transparent; }
+  #menuScrollContainer[data-myrspace-nav] #menuFixer #menuMover .menuInnerPanel { flex: 0 1 auto; width: auto; height: auto; min-height: 0; margin: 0; padding: 0; border: 0; background: transparent; }
+  #menuScrollContainer[data-myrspace-nav] #menuFixer #menuMover .menuInnerPanel a { display: block; padding: 10px 12px; border-radius: 8px; color: #526b68; font-size: 13px; line-height: 1.4; text-decoration: none; }
+  #menuScrollContainer[data-myrspace-nav] #menuFixer #menuMover .menuInnerPanel.currentPanel a { background: #dfeee7; color: #12685c; font-weight: 650; }
+  #menuScrollContainer[data-myrspace-nav] #menuFixer #menuMover .menuInnerPanel a:hover { background: #e7efeb; }
+  #menuScrollContainer[data-myrspace-nav] #menuFixer #menuMover .menuInnerPanel img,
+  #menuScrollContainer[data-myrspace-nav] #menuFixer #menuMover .menuInnerPanel br,
+  #menuScrollContainer[data-myrspace-nav] .menuScrollButton { display: none !important; }
+}
+@media screen {
+  body:has(#profileBlock), body:has(#groupBlocks) { background:#f3f6f5; color:#203536; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+  body:has(:is(#profileBlock,#groupBlocks)) :is(#page,#main,#content,#footer) { width:100%; max-width:1360px; min-width:0; box-sizing:border-box; }
+  body:has(:is(#profileBlock,#groupBlocks)) #page { padding:24px 32px; }
+  body:has(:is(#profileBlock,#groupBlocks)) #main { padding:0; }
+  body:has(:is(#profileBlock,#groupBlocks)) #footer { display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px; padding:32px 0; }
+  body:has([data-myrspace-nav]) .separator { display:none; }
+  #menuScrollContainer[data-myrspace-nav] #menuFixer #menuMover .menuInnerPanel:hover { box-shadow:none; }
+  #menuScrollContainer[data-myrspace-nav] #menuFixer #menuMover .menuInnerPanel a:focus-visible { outline:3px solid #168678; outline-offset:-3px; }
+  body:has(:is(#profileBlock,#groupBlocks)) :is(h1,h2,h3) { color:#203536; border:0; background:none; }
+  body:has(#profileBlock) .myrspace-heading, #groupBlockLeft h2 { font-size:28px; font-weight:650; letter-spacing:-.03em; margin:0 0 24px; }
+  .myrspace-heading > span { display:block; font-size:14px !important; font-weight:400; letter-spacing:0; color:#637874; margin-top:10px; }
+  #profileBlock, #groupBlocks, .myrspace-shared-folder { background:white; border:1px solid #dbe5e3; border-radius:14px; padding:24px; box-sizing:border-box; margin-bottom:24px; }
+  #profileBlock > .bootstrap-custom-flat { display:flex; gap:24px; }
+  #profileBlock > .bootstrap-custom-flat > .col-xs-9 { flex:1; min-width:0; width:auto; padding:0; }
+  #profileBlock > .bootstrap-custom-flat > .col-xs-3 { flex:0 0 160px; width:auto; padding:0; }
+  #profileBlock .profileGreyBlocks { line-height:1.7; overflow-wrap:anywhere; }
+  #profileBlock .profileGreyBlocks strong { color:#526b68; font-weight:600; }
+  #profileBlock :is(.profileEditButton,.myProfileButton,.profileUploadButton),
+  body:has(#groupBlocks) :is(.groupEditButton,.changeRoleButton,.removeLink) { background:#edf4f0; border:1px solid #d0e2d9; border-radius:8px !important; color:#146b60; padding:9px 12px; min-height:38px; font-size:13px !important; line-height:1.4 !important; width:auto; text-align:center; display:inline-flex; justify-content:center; align-items:center; white-space:normal; text-decoration:none; }
+  #profileBlock .profileEditButton.disabled { color:#777; background:#eee; }
+  #profileBlock #portraitHolder { border-radius:12px; background:#edf4f0; padding:12px; box-sizing:border-box; }
+  #profileBlock #profileImage { max-width:100%; border-radius:8px; }
+  #profileBlock .portraitEditBar { padding:12px 0; }
+  body:has(#profileBlock) #main > .bootstrap-custom-flat { clear:both; display:flow-root; background:white; border:1px solid #dbe5e3; padding:24px; border-radius:14px; margin:24px 0; }
+  body:has(#profileBlock) #main > .bootstrap-custom-flat > .col-xs-9 { width:100%; padding:0; }
+  body:has(#profileBlock) #prefContainer { display:flex; flex-wrap:wrap; gap:24px; }
+  body:has(#profileBlock) :is(#notificationPrefs,#broadcastPrefs,#otherPreferences) { float:none; width:auto; max-width:100%; flex:1 1 280px; margin:0; font-size:14px; box-sizing:border-box; }
+  body:has(#profileBlock) #otherPreferences { margin-top:20px; }
+  body:has(#profileBlock) .api-menu__content { flex-wrap:wrap; gap:12px; overflow-wrap:anywhere; }
+  #groupBlockLeft { align-items:flex-start; flex-direction:column; gap:8px; }
+  #groupBlockLeft h2 { margin-bottom:12px; }
+  #groupBlocks .groupEditBar { flex-wrap:wrap; gap:8px; }
+  #groupBlocks .groupActionButtonIcon { display:none; }
+  #groupBlocks a { color:#146b60; }
+  #communityDisplay h3 { font-size:14px; color:#637874; margin:20px 0; }
+  #membersBlock { gap:20px; flex-wrap:wrap; }
+  #membersBlock > * { min-width:0; max-width:100%; box-sizing:border-box; }
+  #membersBlock .group-members, #memberGroups { background:white; border:1px solid #dbe5e3; border-radius:14px; padding:20px; overflow-x:auto; width:100%; }
+  #membersBlock .pending-invitations { overflow-x:auto; padding:20px; background:white; border:1px solid #dbe5e3; border-radius:14px; }
+  body:has(#groupBlocks) :is(#grpDetails,#disabledAccounts,#memberGroupsTable).table { border-collapse:collapse; width:100%; }
+  body:has(#groupBlocks) :is(#grpDetails,#disabledAccounts,#memberGroupsTable).table th { background:#edf4f0; color:#526b68; padding:14px; text-align:left; }
+  body:has(#groupBlocks) :is(#grpDetails,#disabledAccounts,#memberGroupsTable).table td { padding:14px; border-bottom:1px solid #e5ece8; }
+  body:has(:is(#profileBlock,#groupBlocks)) :is(a,button,input,select):focus-visible { outline:3px solid #168678; outline-offset:3px; }
+  @media(max-width:640px) {
+    body:has(:is(#profileBlock,#groupBlocks)) #page { padding:16px 12px; }
+    #profileBlock, #groupBlocks, .myrspace-shared-folder { padding:16px; }
+    #profileBlock > .bootstrap-custom-flat { flex-direction:column-reverse; }
+    #profileBlock > .bootstrap-custom-flat > .col-xs-3 { flex-basis:auto; }
+    #profileBlock #profileBlockRight { float:none !important; display:flex; align-items:center; gap:16px; }
+    #profileBlock #portraitHolder { width:80px; }
+    #profileBlock .col-xs-12 { flex-wrap:wrap; gap:8px; }
+    body:has(#profileBlock) #main > .bootstrap-custom-flat { padding:16px; }
+    #membersBlock .group-members { padding:12px; }
+  }
+}
+@media screen {
+  body:has(#profileBlock) #labgroups-table { background:white; border:1px solid #dbe5e3; border-radius:14px; overflow-x:auto; margin-bottom:24px; }
+  body:has(#profileBlock) #labgroups-table > div { width:100%; box-sizing:border-box; }
+  body:has(#profileBlock) #labgroups-table .MuiTableContainer-root { overflow-x:auto; }
+  body:has(#profileBlock) #labgroups-table table { min-width:540px; }
+  body:has(#profileBlock) #main > .bootstrap-custom-flat > .col-xs-9 > hr { display:none; }
+  body:has(:is(#profileBlock,#groupBlocks)) #main a:link { color:#146b60; }
+  body:has(:is(#profileBlock,#groupBlocks)) #main .MuiButton-root,
+  body:has(#profileBlock) #apiKeyInfo button { text-transform:none; border-radius:8px; color:#146b60; }
+  body:has(:is(#profileBlock,#groupBlocks)) #main .MuiButton-root.Mui-disabled { color:#999; }
+  body:has(#profileBlock) #messageSettingsForm input[type=submit] { background:#146b60; color:white; border:1px solid #146b60; padding:10px 16px; border-radius:8px; }
+  body:has(#profileBlock) #messageSettingsForm input[type=checkbox] { accent-color:#146b60; }
+  #myLabGroups > div { flex-wrap:wrap; gap:8px; }
+  #groupEditBar .MuiInputBase-root { max-width:100%; box-sizing:border-box; }
+  #groupEditBar textarea { min-width:0; width:100%; box-sizing:border-box; }
+  body:has(:is(#profileBlock,#groupBlocks)) .ui-dialog { max-width:calc(100vw - 24px); box-sizing:border-box; border:1px solid #dbe5e3; border-radius:14px; box-shadow:0 20px 80px #20353630; }
+  body:has(:is(#profileBlock,#groupBlocks)) .ui-dialog .ui-dialog-titlebar { background:#edf4f0; color:#203536; padding:14px; border:0; }
+  body:has(:is(#profileBlock,#groupBlocks)) .ui-dialog :is(input,textarea,select) { max-width:100%; box-sizing:border-box; }
+  @media(max-width:640px) {
+    body:has(:is(#profileBlock,#groupBlocks)) .ui-dialog { left:12px !important; }
+  }
+}
+@media screen {
+  #groupEditBar textarea { max-width:100% !important; }
+}
+@media screen {
+  body:has(:is(#profileBlock,#groupBlocks)) #main .MuiButton-contained:not(.Mui-disabled) { background:#146b60; color:white; }
+}
+@media screen {
+  body:has(#profileBlock) #messageSettingsForm #prefssubmit { background:#146b60; color:white; border:1px solid #146b60; padding:10px 16px; border-radius:8px; }
+  @media(max-width:640px) {
+    #profileBlock .profileGreyBlocks:has(> #userEmail) { flex-wrap:wrap; gap:8px; margin:12px 0; }
+    #profileBlock #userEmail { flex:1 1 calc(100% - 65px); min-width:0; }
+    #profileBlock .profileGreyBlocks:has(> #userEmail) > strong { flex-shrink:0; }
+    #profileBlock .profileEditButton { flex-shrink:0; overflow-wrap:normal; }
+  }
+}
+
+/* Shared My RSpace shell: retain the original links/forms and permission-gated items. */
+@media screen {
+  body:has(#myrspace-navigation) { background:#f3f6f5; color:#203536; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+  body:has(#myrspace-navigation) #page { width:100%; max-width:none; min-width:0; margin:0; padding:0; box-sizing:border-box; }
+  body:has(#myrspace-navigation) > #app-bar { position:sticky; top:0; z-index:1100; background:white; }
+  body:has(#myrspace-navigation) .header-wrapper { position:sticky; top:var(--myrspace-appbar-height,68px); z-index:1090; background:white; }
+  body:has(#myrspace-navigation) #content { width:auto; max-width:none; min-width:0; margin:0 0 0 200px; padding:24px; box-sizing:border-box; }
+  body:has(#myrspace-navigation) #main { width:100%; max-width:none; min-width:0; margin:0; padding:0; box-sizing:border-box; }
+  body:has(#myrspace-navigation) #footer { width:auto; max-width:none; min-width:0; margin:0 0 0 200px; padding:24px; box-sizing:border-box; }
+  #myrspace-navigation { position:fixed; top:var(--myrspace-header-height,68px); left:0; bottom:0; width:200px; margin:0; padding:12px 8px; border-right:1px solid #dbe5e3; background:white; box-sizing:border-box; z-index:1000; }
+  #myrspace-navigation > summary { display:none; }
+  #myrspace-navigation #menuScrollContainer[data-myrspace-nav] { position:static; width:100%; height:100%; overflow-x:hidden; overflow-y:auto; margin:0; padding:0; border:0; }
+  #myrspace-navigation #menuScrollContainer #menuFixer { float:none; height:auto; width:100%; overflow:visible; background:none; border:0; }
+  #myrspace-navigation #menuScrollContainer #menuFixer #menuMover { width:100%; height:auto; margin:0; padding:0; display:flex; flex-direction:column; flex-wrap:nowrap; gap:6px; background:none; }
+  #myrspace-navigation #menuScrollContainer #menuFixer #menuMover .menuInnerPanel { flex:0 0 auto; width:100%; height:auto; min-height:0; margin:0; padding:0; border:0; background:none; text-align:left; box-sizing:border-box; box-shadow:none; }
+  #myrspace-navigation #menuScrollContainer #menuFixer #menuMover .menuInnerPanel a { display:flex; flex-direction:row; align-items:center; min-height:42px; box-sizing:border-box; padding:10px 16px; color:#526b68; border-radius:8px; font:550 13px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; text-decoration:none; overflow-wrap:anywhere; }
+  #myrspace-navigation #menuScrollContainer #menuFixer #menuMover .menuInnerPanel.currentPanel a { background:#e1efe8; color:#146b60; }
+  #myrspace-navigation #menuScrollContainer #menuFixer #menuMover .menuInnerPanel a:hover { background:#edf4f0; }
+  #myrspace-navigation #menuScrollContainer #menuFixer #menuMover .menuInnerPanel a:focus-visible { outline:3px solid #168678 !important; outline-offset:-3px; }
+  #myrspace-navigation #menuScrollContainer #menuFixer #menuMover .menuInnerPanel img,
+  #myrspace-navigation #menuScrollContainer #menuFixer #menuMover .menuInnerPanel br,
+  #myrspace-navigation .menuScrollButton { display:none !important; }
+  @media(max-width:767px) {
+    body:has(#myrspace-navigation) #content { margin:0; padding:12px; }
+    body:has(#myrspace-navigation) #footer { margin:0; padding:20px 12px; }
+    #myrspace-navigation { position:relative; top:auto; bottom:auto; width:100%; margin:0 0 20px; padding:0; border:1px solid #dbe5e3; border-radius:12px; z-index:auto; }
+    #myrspace-navigation > summary { display:list-item; padding:14px 16px; color:#146b60; font-size:14px; font-weight:600; cursor:pointer; }
+    #myrspace-navigation > summary:focus-visible { outline:3px solid #168678; outline-offset:-3px; }
+    #myrspace-navigation[open] #menuScrollContainer { height:auto; max-height:60vh; padding:0 8px 8px; box-sizing:border-box; }
+  }
+}

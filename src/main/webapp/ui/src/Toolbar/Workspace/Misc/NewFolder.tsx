@@ -70,6 +70,12 @@ export default function NewNotebook() {
       // biome-ignore lint/suspicious/noExplicitAny: initial biome migration
       .then((response: any) => {
         if (response.data) {
+          if (document.querySelector("#toolbar2")?.getAttribute("data-home") === "true") {
+            trackEvent("user:create:folder:workspace");
+            const destination = navigateAfterCreate ? response.data.data : workspaceSettings.parentFolderId;
+            window.location.assign(`/workspace/${destination}?currentViewMode=LIST_VIEW`);
+            return;
+          }
           reloadFileTreeBrowser();
           if (navigateAfterCreate) {
             workspaceSettings.parentFolderId = response.data.data;

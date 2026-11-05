@@ -1,0 +1,88 @@
+@import "myrspace-content-refresh.css";
+
+@media screen {
+  body:has(#system-navigation) { background:#f3f6f5; color:#203536; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+  body:has(#system-navigation) #page { width:100%; max-width:none; min-width:0; margin:0; padding:0; box-sizing:border-box; }
+  body:has(#system-navigation) > #app-bar { position:sticky; top:0; z-index:1100; background:white; }
+  body:has(#system-navigation) .header-wrapper { position:sticky; top:var(--system-appbar-height,68px); z-index:1090; background:white; }
+  body:has(#system-navigation) #page > #content { width:auto; max-width:none; min-width:0; margin:0 0 0 200px; padding:20px; box-sizing:border-box; }
+  body:has(#system-navigation) #main { width:100%; max-width:none; min-width:0; margin:0; padding:0; box-sizing:border-box; }
+  body:has(#system-navigation) #main #content { width:100%; min-width:0; margin:0; padding:0; }
+  body:has(#system-navigation) #footer { width:auto; margin:0 0 0 200px; padding:24px; box-sizing:border-box; }
+  body:has(#system-navigation) #topSection { width:auto; margin:0; padding:0; height:auto; }
+  #system-navigation { position:fixed; top:var(--system-header-height,68px); left:0; bottom:0; width:200px; padding:12px 8px; background:white; border-right:1px solid #dbe5e3; box-sizing:border-box; z-index:1000; }
+  #system-navigation > summary { display:none; }
+  #system-navigation #topBar { width:100%; height:100%; min-height:0; margin:0; padding:0; border:0; border-radius:0; background:white; box-shadow:none; overflow-y:auto; }
+  #system-navigation #topBar .container-fluid { padding:0; }
+  #system-navigation #topBar .navbar-nav { display:flex; flex-direction:column; float:none; margin:0; padding:0; gap:6px; }
+  #system-navigation #topBar li { float:none; margin:0; padding:0; }
+  #system-navigation #topBar li:empty:not(.divider) { display:none; }
+  #system-navigation #topBar li.divider { height:1px; background:#dbe5e3; margin:8px 0; width:100%; }
+  #system-navigation #topBar a { display:flex; align-items:center; min-height:42px; padding:10px 16px; border:0; border-radius:8px; color:#526b68; background:transparent; font:550 13px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; box-sizing:border-box; white-space:normal; text-decoration:none; }
+  #system-navigation #topBar a:hover { background:#edf4f0; }
+  #system-navigation #topBar a[aria-current=page] { background:#e1efe8; color:#146b60; }
+  #system-navigation #topBar a:focus-visible { outline:3px solid #168678; outline-offset:-3px; }
+  body:has(#system-navigation) :is(#groupListContainer,#communityListContainer,#contentCreateAccount,#mainArea:not(:empty)) { background:white; border:1px solid #dbe5e3; border-radius:14px; padding:24px; box-sizing:border-box; max-width:100%; overflow-x:auto; }
+  body:has(#system-navigation) :is(h2,h3) { color:#203536; line-height:1.4; }
+  body:has(#system-navigation) #contentCreateAccount > br,
+  body:has(#system-navigation) .buttonsBelowTopBar ~ br { display:none; }
+  body:has(#system-navigation) .buttonsBelowTopBar { display:flex; flex-wrap:wrap; gap:8px; width:auto; height:auto; margin:0 0 20px; float:none; }
+  body:has(#system-navigation) :is(.topSectionTextIconBtn,.pageTopButton,.crudopsTopPanel .link) { padding:10px 16px !important; background:#edf4f0 !important; border:1px solid #d0e2d9; border-radius:8px !important; color:#146b60; font-size:14px !important; line-height:1.5 !important; text-shadow:none; white-space:normal; box-sizing:border-box; }
+  body:has(#system-navigation) :is(#pageTopButtons,#selectAccountToCreateSection,.crudopsTopPanel ul) { display:flex; flex-wrap:wrap; gap:8px; height:auto; margin:0 0 16px; padding:0; }
+  body:has(#system-navigation) :is(#pageTopButtons > *,#selectAccountToCreateSection > *) { margin:0; }
+  body:has(#system-navigation) .crudopsTopPanel { background:transparent; height:auto; padding:0; }
+  body:has(#system-navigation) .systemList { width:100%; border:0; border-collapse:collapse; background:white; }
+  body:has(#system-navigation) .systemList th { background:#edf4f0; color:#526b68; border:0; padding:14px; text-align:left; }
+  body:has(#system-navigation) .systemList td { border:0; border-bottom:1px solid #e5ece8; padding:14px; background:white; }
+  body:has(#system-navigation) .systemList a { color:#146b60; }
+  body:has(#system-navigation) :is(#mainArea,#contentCreateAccount) :is(input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=hidden]),select,textarea) { max-width:100%; box-sizing:border-box; border:1px solid #bccfc7; border-radius:8px; padding:8px 12px; font:inherit; }
+  body:has(#system-navigation) #mainArea .settingsTable { width:100%; }
+  body:has(#system-navigation) #sysadminUsers .system-users-layout { width:100%; padding:0; background:transparent; }
+  body:has(#system-navigation) #sysadminUsers .system-users-card { margin:0; padding:8px; border:1px solid #dbe5e3; border-radius:14px; background:white; }
+  body:has(#system-navigation) #sysadminUsers .MuiCardHeader-root { border-color:#e5ece8; }
+  body:has(#system-navigation) #sysadminUsers .MuiCardHeader-title { color:#203536; font-size:26px; font-weight:650; }
+  body:has(#system-navigation) #sysadminUsers .MuiTypography-root { font-family:inherit; }
+  body:has(#system-navigation) #sysadminUsers .MuiButton-root { text-transform:none; border-radius:8px; box-shadow:none; }
+  body:has(#system-navigation) #sysadminUsers .MuiButton-outlined:not(.Mui-disabled) { border-color:#d0e2d9; color:#146b60; }
+  body:has(#system-navigation) #sysadminUsers .MuiInputBase-root { border-radius:8px; }
+  body:has(#system-navigation) #sysadminUsers .system-users-summary td { background:#edf4f0; border-color:#dbe5e3; color:#526b68; }
+  body:has(#system-navigation) #sysadminUsers .MuiDataGrid-columnHeaders { background:#edf4f0; }
+  body:has(#system-navigation) #sysadminUsers .MuiDataGrid-row:not(.Mui-selected) { background:white; }
+  body:has(#system-navigation) #sysadminUsers .MuiDataGrid-row a { color:#146b60; }
+  @media(max-width:1000px) {
+    body:has(#system-navigation) #sysadminUsers .system-users-summary { position:static; margin:0 0 20px; max-width:100%; }
+  }
+  @media(max-width:767px) {
+    body:has(#system-navigation) #page > #content { margin:0; padding:12px; }
+    body:has(#system-navigation) #footer { margin:0; padding:20px 12px; }
+    #system-navigation { position:relative; top:auto; bottom:auto; width:100%; padding:0; margin:0 0 20px; border:1px solid #dbe5e3; border-radius:12px; z-index:auto; }
+    #system-navigation > summary { display:list-item; padding:14px 16px; color:#146b60; font-size:14px; font-weight:600; cursor:pointer; }
+    #system-navigation[open] #topBar { max-height:60vh; padding:0 8px 8px; box-sizing:border-box; border-radius:12px; }
+    body:has(#system-navigation) :is(#groupListContainer,#communityListContainer,#contentCreateAccount,#mainArea:not(:empty)) { padding:16px; }
+    body:has(#system-navigation) .systemList { min-width:600px; }
+    body:has(#system-navigation) #sysadminUsers .MuiCardContent-root { padding:8px; }
+  }
+}
+@media screen {
+  #system-navigation #topBar .divider::after { display:none; }
+  #system-navigation #topBar a:focus { text-shadow:none !important; }
+  body:has(#system-navigation) #sysadminUsers .system-users-toolbar { height:auto; flex:0 0 auto; padding:8px; box-sizing:border-box; }
+  body:has(#system-navigation) #sysadminUsers a.MuiLink-root { color:#146b60; }
+  body:has(#system-navigation) .settingRow { display:flex; flex-wrap:wrap; gap:12px; padding:16px 0; margin:0; border-bottom:1px solid #e5ece8; align-items:center; }
+  body:has(#system-navigation) .settingName { flex:1 1 260px; min-width:0; }
+  body:has(#system-navigation) .settingValue { min-width:0; }
+  body:has(#system-navigation) :is(.settingName,.settingValue) { font-family:inherit; font-size:14px; overflow-wrap:anywhere; }
+  body:has(#system-navigation) .settingRow a { color:#146b60; }
+  body:has(#system-navigation) .settingCategoryRow h2 { margin-top:28px; font-size:24px; }
+  body:has(#system-navigation) .settingSubCategoryRow h3 { margin-top:20px; font-size:18px; }
+}
+@media screen {
+  body:has(#system-navigation) #mainArea a { color:#146b60; }
+  body:has(#system-navigation) #submitCreateUserAccount { background:#146b60; color:white; border:1px solid #146b60; border-radius:8px; padding:10px 16px; min-height:42px; }
+  @media(max-width:767px) {
+    body:has(#system-navigation) #createUserAccountForm > table.form > tbody > tr { display:block; margin-bottom:12px; }
+    body:has(#system-navigation) #createUserAccountForm > table.form > tbody > tr > td { display:block; width:100%; padding:6px 0; box-sizing:border-box; }
+    body:has(#system-navigation) #createUserAccountForm .accountsInputs { width:100%; }
+    body:has(#system-navigation) #createUserAccountForm #groupsList { overflow-x:auto; max-width:100%; }
+  }
+}

@@ -97,7 +97,17 @@ const SearchRouter = observer(({ paramsOverride }: SearchRouterArgs) => {
       <Box sx={{ display: "flex", height: "calc(100% - 48px)" }}>
         <Sidebar id={sidebarId} />
         <Main>
-          <Layout colLeft={<LeftPanelView />} colRight={<RightPanelView />} />
+          <Layout
+            showDetails={Boolean(
+              searchStore.activeResult ||
+                search.loadingBatchEditing ||
+                search.batchEditingRecordsByType ||
+                search.fetcher.permalinkNotFound ||
+                paramsOverride?.permalink,
+            )}
+            colLeft={<LeftPanelView />}
+            colRight={<RightPanelView />}
+          />
         </Main>
       </Box>
     </>
